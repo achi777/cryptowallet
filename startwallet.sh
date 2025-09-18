@@ -129,10 +129,62 @@ if ! command -v npm &> /dev/null; then
     exit 1
 fi
 
+# Check if Docker is installed and running
+if ! command -v docker &> /dev/null; then
+    print_error "Docker is not installed or not in PATH"
+    print_status "Please install Docker"
+    exit 1
+fi
+
+if ! docker info &> /dev/null; then
+    print_warning "Docker daemon is not accessible. Trying to start containers anyway..."
+    sleep 2
+fi
+
+# Check if Docker Compose is available
+if ! command -v docker-compose &> /dev/null && ! docker compose version &> /dev/null 2>&1; then
+    print_error "Docker Compose is not available"
+    print_status "Please install Docker Compose"
+    exit 1
+fi
+
 # Stop any existing processes
 print_status "Checking for existing processes..."
 kill_port_processes 8080 "Backend"
 kill_port_processes 3000 "Frontend"
+kill_port_processes 5433 "PostgreSQL"
+
+# Start PostgreSQL with Docker Compose
+print_status "🐘 Starting PostgreSQL database..."
+if command -v docker-compose &> /dev/null; then
+    docker-compose up -d postgres
+else
+    docker compose up -d postgres
+fi
+
+# Wait for PostgreSQL to be ready
+print_status "Waiting for PostgreSQL to be ready..."
+max_attempts=30
+attempt=1
+while [ $attempt -le $max_attempts ]; do
+    if docker exec cryptowallet-postgres pg_isready -U cryptouser -d cryptowallet &> /dev/null; then
+        print_success "✅ PostgreSQL is ready!"
+        break
+    fi
+    
+    printf "."
+    sleep 2
+    attempt=$((attempt + 1))
+done
+
+if [ $attempt -gt $max_attempts ]; then
+    echo ""
+    print_error "❌ PostgreSQL failed to start within 60 seconds"
+    print_status "Check Docker logs: docker logs cryptowallet-postgres"
+    exit 1
+fi
+
+echo ""
 
 # Create log directory
 mkdir -p "$SCRIPT_DIR/logs"
@@ -205,7 +257,7 @@ echo "========================================"
 echo ""
 print_status "📱 Frontend:     http://localhost:3000"
 print_status "🔧 Backend API:  http://localhost:8080/api"
-print_status "🗄️  Database:    http://localhost:8080/h2-console"
+print_status "🐘 PostgreSQL:   localhost:5433 (cryptowallet db)"
 echo ""
 print_status "Process IDs:"
 print_status "  Backend PID:   $BACKEND_PID"

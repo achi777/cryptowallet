@@ -15,7 +15,7 @@
 [INFO] Nothing to compile - all classes are up to date
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ crypto-wallet-backend ---
-[INFO] skip non existing resourceDirectory /Users/archilodishelidze/Desktop/cryptowallet/backend/src/test/resources
+[INFO] skip non existing resourceDirectory /Users/archilodishelidze/Desktop/dev/cryptowallet/backend/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ crypto-wallet-backend ---
 [INFO] Nothing to compile - all classes are up to date
@@ -34,197 +34,42 @@
  =========|_|==============|___/=/_/_/_/
 [32m :: Spring Boot :: [39m              [2m (v3.2.0)[0;39m
 
-[2m2025-09-17T16:42:53.715+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Starting CryptoWalletApplication using Java 23.0.2 with PID 15297 (/Users/archilodishelidze/Desktop/cryptowallet/backend/target/classes started by archilodishelidze in /Users/archilodishelidze/Desktop/cryptowallet/backend)
-[2m2025-09-17T16:42:53.716+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
-[2m2025-09-17T16:42:53.716+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
-[2m2025-09-17T16:42:53.988+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-[2m2025-09-17T16:42:54.011+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Finished Spring Data repository scanning in 19 ms. Found 3 JPA repository interfaces.
-[2m2025-09-17T16:42:54.229+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
-[2m2025-09-17T16:42:54.234+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
-[2m2025-09-17T16:42:54.234+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
-[2m2025-09-17T16:42:54.270+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
-[2m2025-09-17T16:42:54.271+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 533 ms
-[2m2025-09-17T16:42:54.286+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Starting...
-[2m2025-09-17T16:42:54.359+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
-[2m2025-09-17T16:42:54.360+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Start completed.
-[2m2025-09-17T16:42:54.365+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.b.a.h2.H2ConsoleAutoConfiguration   [0;39m [2m:[0;39m H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
-[2m2025-09-17T16:42:54.415+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.hibernate.jpa.internal.util.LogHelper [0;39m [2m:[0;39m HHH000204: Processing PersistenceUnitInfo [name: default]
-[2m2025-09-17T16:42:54.447+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.Version                   [0;39m [2m:[0;39m HHH000412: Hibernate ORM core version 6.3.1.Final
-[2m2025-09-17T16:42:54.461+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.h.c.internal.RegionFactoryInitiator   [0;39m [2m:[0;39m HHH000026: Second-level cache disabled
-[2m2025-09-17T16:42:54.553+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.o.j.p.SpringPersistenceUnitInfo     [0;39m [2m:[0;39m No LoadTimeWeaver setup: ignoring JPA class transformer
-[2m2025-09-17T16:42:54.571+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.orm.deprecation           [0;39m [2m:[0;39m HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-[2m2025-09-17T16:42:54.928+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.h.e.t.j.p.i.JtaPlatformInitiator      [0;39m [2m:[0;39m HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-[2m2025-09-17T16:42:54.947+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    create table transactions (
-        id bigint generated by default as identity,
-        amount numeric(20,8) not null,
-        block_number bigint,
-        confirmations integer,
-        created_at timestamp(6) not null,
-        fee numeric(20,8),
-        from_address varchar(255) not null,
-        memo varchar(255),
-        status varchar(255) not null check (status in ('PENDING','CONFIRMED','FAILED')),
-        to_address varchar(255) not null,
-        tx_hash varchar(255) not null,
-        type varchar(255) not null check (type in ('SEND','RECEIVE')),
-        wallet_id bigint not null,
-        primary key (id)
-    )
-Hibernate: 
-    create table transactions (
-        id bigint generated by default as identity,
-        amount numeric(20,8) not null,
-        block_number bigint,
-        confirmations integer,
-        created_at timestamp(6) not null,
-        fee numeric(20,8),
-        from_address varchar(255) not null,
-        memo varchar(255),
-        status varchar(255) not null check (status in ('PENDING','CONFIRMED','FAILED')),
-        to_address varchar(255) not null,
-        tx_hash varchar(255) not null,
-        type varchar(255) not null check (type in ('SEND','RECEIVE')),
-        wallet_id bigint not null,
-        primary key (id)
-    )
-[2m2025-09-17T16:42:54.951+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    create table users (
-        id bigint generated by default as identity,
-        active boolean,
-        created_at timestamp(6) not null,
-        email varchar(255) not null,
-        first_name varchar(255),
-        last_name varchar(255),
-        password varchar(255) not null,
-        updated_at timestamp(6),
-        username varchar(255) not null,
-        primary key (id)
-    )
-Hibernate: 
-    create table users (
-        id bigint generated by default as identity,
-        active boolean,
-        created_at timestamp(6) not null,
-        email varchar(255) not null,
-        first_name varchar(255),
-        last_name varchar(255),
-        password varchar(255) not null,
-        updated_at timestamp(6),
-        username varchar(255) not null,
-        primary key (id)
-    )
-[2m2025-09-17T16:42:54.951+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    create table wallets (
-        id bigint generated by default as identity,
-        active boolean,
-        address varchar(255) not null,
-        balance numeric(20,8),
-        created_at timestamp(6) not null,
-        currency varchar(255) not null check (currency in ('BITCOIN','USDT_TRC20')),
-        private_key varchar(255) not null,
-        updated_at timestamp(6),
-        user_id bigint not null,
-        primary key (id)
-    )
-Hibernate: 
-    create table wallets (
-        id bigint generated by default as identity,
-        active boolean,
-        address varchar(255) not null,
-        balance numeric(20,8),
-        created_at timestamp(6) not null,
-        currency varchar(255) not null check (currency in ('BITCOIN','USDT_TRC20')),
-        private_key varchar(255) not null,
-        updated_at timestamp(6),
-        user_id bigint not null,
-        primary key (id)
-    )
-[2m2025-09-17T16:42:54.952+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists transactions 
-       drop constraint if exists UK_pcaq61xakqmx496as8f0c5y0y
-Hibernate: 
-    alter table if exists transactions 
-       drop constraint if exists UK_pcaq61xakqmx496as8f0c5y0y
-[2m2025-09-17T16:42:54.952+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists transactions 
-       add constraint UK_pcaq61xakqmx496as8f0c5y0y unique (tx_hash)
-Hibernate: 
-    alter table if exists transactions 
-       add constraint UK_pcaq61xakqmx496as8f0c5y0y unique (tx_hash)
-[2m2025-09-17T16:42:54.953+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists users 
-       drop constraint if exists UK_6dotkott2kjsp8vw4d0m25fb7
-Hibernate: 
-    alter table if exists users 
-       drop constraint if exists UK_6dotkott2kjsp8vw4d0m25fb7
-[2m2025-09-17T16:42:54.953+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists users 
-       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
-Hibernate: 
-    alter table if exists users 
-       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email)
-[2m2025-09-17T16:42:54.953+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists users 
-       drop constraint if exists UK_r43af9ap4edm43mmtq01oddj6
-Hibernate: 
-    alter table if exists users 
-       drop constraint if exists UK_r43af9ap4edm43mmtq01oddj6
-[2m2025-09-17T16:42:54.953+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists users 
-       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
-Hibernate: 
-    alter table if exists users 
-       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
-[2m2025-09-17T16:42:54.954+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists wallets 
-       drop constraint if exists UK_97gkb67pi15hxx44rq58buta6
-Hibernate: 
-    alter table if exists wallets 
-       drop constraint if exists UK_97gkb67pi15hxx44rq58buta6
-[2m2025-09-17T16:42:54.954+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists wallets 
-       add constraint UK_97gkb67pi15hxx44rq58buta6 unique (address)
-Hibernate: 
-    alter table if exists wallets 
-       add constraint UK_97gkb67pi15hxx44rq58buta6 unique (address)
-[2m2025-09-17T16:42:54.954+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists transactions 
-       add constraint FK23bop5lktue0o5q7kr19ti8h 
-       foreign key (wallet_id) 
-       references wallets
-Hibernate: 
-    alter table if exists transactions 
-       add constraint FK23bop5lktue0o5q7kr19ti8h 
-       foreign key (wallet_id) 
-       references wallets
-[2m2025-09-17T16:42:54.956+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    alter table if exists wallets 
-       add constraint FKc1foyisidw7wqqrkamafuwn4e 
-       foreign key (user_id) 
-       references users
-Hibernate: 
-    alter table if exists wallets 
-       add constraint FKc1foyisidw7wqqrkamafuwn4e 
-       foreign key (user_id) 
-       references users
-[2m2025-09-17T16:42:54.957+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mj.LocalContainerEntityManagerFactoryBean[0;39m [2m:[0;39m Initialized JPA EntityManagerFactory for persistence unit 'default'
-[2m2025-09-17T16:42:55.088+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.d.j.r.query.QueryEnhancerFactory    [0;39m [2m:[0;39m Hibernate is in classpath; If applicable, HQL parser will be used.
-[2m2025-09-17T16:42:55.369+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mJpaBaseConfiguration$JpaWebConfiguration[0;39m [2m:[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-[2m2025-09-17T16:42:55.376+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+[2m2025-09-18T14:38:31.360+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Starting CryptoWalletApplication using Java 23.0.2 with PID 21355 (/Users/archilodishelidze/Desktop/dev/cryptowallet/backend/target/classes started by archilodishelidze in /Users/archilodishelidze/Desktop/dev/cryptowallet/backend)
+[2m2025-09-18T14:38:31.360+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Running with Spring Boot v3.2.0, Spring v6.1.1
+[2m2025-09-18T14:38:31.360+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m No active profile set, falling back to 1 default profile: "default"
+[2m2025-09-18T14:38:31.629+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2m2025-09-18T14:38:31.650+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.d.r.c.RepositoryConfigurationDelegate[0;39m [2m:[0;39m Finished Spring Data repository scanning in 18 ms. Found 3 JPA repository interfaces.
+[2m2025-09-18T14:38:31.854+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port 8080 (http)
+[2m2025-09-18T14:38:31.859+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardService  [0;39m [2m:[0;39m Starting service [Tomcat]
+[2m2025-09-18T14:38:31.859+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.apache.catalina.core.StandardEngine   [0;39m [2m:[0;39m Starting Servlet engine: [Apache Tomcat/10.1.16]
+[2m2025-09-18T14:38:31.891+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring embedded WebApplicationContext
+[2m2025-09-18T14:38:31.892+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 510 ms
+[2m2025-09-18T14:38:31.953+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.hibernate.jpa.internal.util.LogHelper [0;39m [2m:[0;39m HHH000204: Processing PersistenceUnitInfo [name: default]
+[2m2025-09-18T14:38:31.979+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.Version                   [0;39m [2m:[0;39m HHH000412: Hibernate ORM core version 6.3.1.Final
+[2m2025-09-18T14:38:31.991+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.h.c.internal.RegionFactoryInitiator   [0;39m [2m:[0;39m HHH000026: Second-level cache disabled
+[2m2025-09-18T14:38:32.083+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.o.j.p.SpringPersistenceUnitInfo     [0;39m [2m:[0;39m No LoadTimeWeaver setup: ignoring JPA class transformer
+[2m2025-09-18T14:38:32.093+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Starting...
+[2m2025-09-18T14:38:32.176+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@656ec00d
+[2m2025-09-18T14:38:32.177+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mcom.zaxxer.hikari.HikariDataSource      [0;39m [2m:[0;39m HikariPool-1 - Start completed.
+[2m2025-09-18T14:38:32.195+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36morg.hibernate.orm.deprecation           [0;39m [2m:[0;39m HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+[2m2025-09-18T14:38:32.548+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.h.e.t.j.p.i.JtaPlatformInitiator      [0;39m [2m:[0;39m HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2m2025-09-18T14:38:32.609+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mj.LocalContainerEntityManagerFactoryBean[0;39m [2m:[0;39m Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2m2025-09-18T14:38:32.740+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.d.j.r.query.QueryEnhancerFactory    [0;39m [2m:[0;39m Hibernate is in classpath; If applicable, HQL parser will be used.
+[2m2025-09-18T14:38:32.995+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mJpaBaseConfiguration$JpaWebConfiguration[0;39m [2m:[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2m2025-09-18T14:38:33.002+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
 
-Using generated security password: a5331dea-8899-4f72-9689-790398ad0dbd
+Using generated security password: cc1e3fdd-ab48-47d2-be46-b7dfad2db8eb
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-[2m2025-09-17T16:42:55.486+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@9d455a6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@124e538e, org.springframework.security.web.context.SecurityContextHolderFilter@6ee0ef34, org.springframework.security.web.header.HeaderWriterFilter@4104b6a6, org.springframework.web.filter.CorsFilter@dcc7d1c, org.springframework.security.web.authentication.logout.LogoutFilter@68ecc60e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41a18b54, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@78854721, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6ac9742e, org.springframework.security.web.access.ExceptionTranslationFilter@38950138, org.springframework.security.web.access.intercept.AuthorizationFilter@1631a614]
-[2m2025-09-17T16:42:55.568+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
-[2m2025-09-17T16:42:55.572+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Started CryptoWalletApplication in 2.018 seconds (process running for 2.183)
-[2m2025-09-17T16:42:59.524+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
-[2m2025-09-17T16:42:59.524+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
-[2m2025-09-17T16:42:59.525+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 1 ms
-[2m2025-09-17T16:42:59.549+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.w.s.h.HandlerMappingIntrospector    [0;39m [2m:[0;39m Cache miss for REQUEST dispatch to '/api/wallets/user/1' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
-[2m2025-09-17T16:42:59.616+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:38:33.099+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4eb313ed, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3fc92211, org.springframework.security.web.context.SecurityContextHolderFilter@7b9e7633, org.springframework.security.web.header.HeaderWriterFilter@747216b6, org.springframework.web.filter.CorsFilter@63d8590c, org.springframework.security.web.authentication.logout.LogoutFilter@227ae4e4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@57bc7f67, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f808ad9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@117bfeb8, org.springframework.security.web.access.ExceptionTranslationFilter@181a6784, org.springframework.security.web.access.intercept.AuthorizationFilter@4a577b99]
+[2m2025-09-18T14:38:33.173+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port 8080 (http) with context path ''
+[2m2025-09-18T14:38:33.177+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [           main][0;39m [2m[0;39m[36mc.cryptowallet.CryptoWalletApplication  [0;39m [2m:[0;39m Started CryptoWalletApplication in 1.973 seconds (process running for 2.127)
+[2m2025-09-18T14:38:36.765+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.a.c.c.C.[Tomcat].[localhost].[/]      [0;39m [2m:[0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2m2025-09-18T14:38:36.765+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2025-09-18T14:38:36.766+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 1 ms
+[2m2025-09-18T14:38:36.782+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mo.s.w.s.h.HandlerMappingIntrospector    [0;39m [2m:[0;39m Cache miss for REQUEST dispatch to '/api/wallets/user/1' (previous null). Performing MatchableHandlerMapping lookup. This is logged once only at WARN level, and every time at TRACE.
+[2m2025-09-18T14:38:36.843+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         w1_0.id,
         w1_0.active,
@@ -254,7 +99,7 @@ Hibernate:
         wallets w1_0 
     where
         w1_0.user_id=?
-[2m2025-09-17T16:42:59.643+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:38:36.903+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         w1_0.id,
         w1_0.active,
@@ -284,389 +129,7 @@ Hibernate:
         wallets w1_0 
     where
         w1_0.user_id=?
-[2m2025-09-17T16:43:10.015+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-3][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    select
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at,
-        w1_0.user_id 
-    from
-        wallets w1_0 
-    where
-        w1_0.user_id=?
-Hibernate: 
-    select
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at,
-        w1_0.user_id 
-    from
-        wallets w1_0 
-    where
-        w1_0.user_id=?
-[2m2025-09-17T16:43:10.023+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    select
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at,
-        w1_0.user_id 
-    from
-        wallets w1_0 
-    where
-        w1_0.user_id=?
-Hibernate: 
-    select
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at,
-        w1_0.user_id 
-    from
-        wallets w1_0 
-    where
-        w1_0.user_id=?
-[2m2025-09-17T16:43:17.272+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-6][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.updated_at,
-        u1_0.username,
-        w1_0.user_id,
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at 
-    from
-        users u1_0 
-    left join
-        wallets w1_0 
-            on u1_0.id=w1_0.user_id 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.updated_at,
-        u1_0.username,
-        w1_0.user_id,
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at 
-    from
-        users u1_0 
-    left join
-        wallets w1_0 
-            on u1_0.id=w1_0.user_id 
-    where
-        u1_0.id=?
-[2m2025-09-17T16:43:17.276+04:00[0;39m [31mERROR[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-6][0;39m [2m[0;39m[36mo.a.c.c.C.[.[.[/].[dispatcherServlet]   [0;39m [2m:[0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: User not found] with root cause
-
-java.lang.RuntimeException: User not found
-	at com.cryptowallet.service.WalletService.lambda$createWallet$0(WalletService.java:33) ~[classes/:na]
-	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
-	at com.cryptowallet.service.WalletService.createWallet(WalletService.java:33) ~[classes/:na]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717) ~[spring-aop-6.1.1.jar:6.1.1]
-	at com.cryptowallet.service.WalletService$$SpringCGLIB$$0.createWallet(<generated>) ~[classes/:na]
-	at com.cryptowallet.controller.WalletController.createWallet(WalletController.java:25) ~[classes/:na]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
-
-[2m2025-09-17T16:43:20.019+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-7][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.updated_at,
-        u1_0.username,
-        w1_0.user_id,
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at 
-    from
-        users u1_0 
-    left join
-        wallets w1_0 
-            on u1_0.id=w1_0.user_id 
-    where
-        u1_0.id=?
-Hibernate: 
-    select
-        u1_0.id,
-        u1_0.active,
-        u1_0.created_at,
-        u1_0.email,
-        u1_0.first_name,
-        u1_0.last_name,
-        u1_0.password,
-        u1_0.updated_at,
-        u1_0.username,
-        w1_0.user_id,
-        w1_0.id,
-        w1_0.active,
-        w1_0.address,
-        w1_0.balance,
-        w1_0.created_at,
-        w1_0.currency,
-        w1_0.private_key,
-        w1_0.updated_at 
-    from
-        users u1_0 
-    left join
-        wallets w1_0 
-            on u1_0.id=w1_0.user_id 
-    where
-        u1_0.id=?
-[2m2025-09-17T16:43:20.022+04:00[0;39m [31mERROR[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-7][0;39m [2m[0;39m[36mo.a.c.c.C.[.[.[/].[dispatcherServlet]   [0;39m [2m:[0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: User not found] with root cause
-
-java.lang.RuntimeException: User not found
-	at com.cryptowallet.service.WalletService.lambda$createWallet$0(WalletService.java:33) ~[classes/:na]
-	at java.base/java.util.Optional.orElseThrow(Optional.java:403) ~[na:na]
-	at com.cryptowallet.service.WalletService.createWallet(WalletService.java:33) ~[classes/:na]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:352) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:765) ~[spring-aop-6.1.1.jar:6.1.1]
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:717) ~[spring-aop-6.1.1.jar:6.1.1]
-	at com.cryptowallet.service.WalletService$$SpringCGLIB$$0.createWallet(<generated>) ~[classes/:na]
-	at com.cryptowallet.controller.WalletController.createWallet(WalletController.java:25) ~[classes/:na]
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
-	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:254) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:182) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:917) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:829) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.1.jar:6.1.1]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.16.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.2.0.jar:6.2.0]
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.1.jar:6.1.1]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.16.jar:10.1.16]
-	at java.base/java.lang.Thread.run(Thread.java:1575) ~[na:na]
-
-[2m2025-09-17T16:43:33.045+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-9][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:38:47.746+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         u1_0.id,
         u1_0.active,
@@ -696,8 +159,70 @@ Hibernate:
         users u1_0 
     where
         u1_0.username=?
-[2m2025-09-17T16:43:33.050+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-9][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m Authentication failed for username: achi
-[2m2025-09-17T16:43:52.589+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:38:47.751+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m Authentication failed for username: condor
+[2m2025-09-18T14:39:05.997+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-8][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+[2m2025-09-18T14:39:06.001+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-8][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m Authentication failed for username: condor
+[2m2025-09-18T14:39:12.570+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+[2m2025-09-18T14:39:12.575+04:00[0;39m [33m WARN[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m Authentication failed for username: achi@achi
+[2m2025-09-18T14:47:06.166+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         u1_0.id 
     from
@@ -715,7 +240,7 @@ Hibernate:
         u1_0.username=? 
     fetch
         first ? rows only
-[2m2025-09-17T16:43:52.591+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:06.175+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         u1_0.id 
     from
@@ -733,22 +258,22 @@ Hibernate:
         u1_0.email=? 
     fetch
         first ? rows only
-[2m2025-09-17T16:43:52.706+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:06.286+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     insert 
     into
         users
-        (active, created_at, email, first_name, last_name, password, updated_at, username, id) 
+        (active, created_at, email, first_name, last_name, password, updated_at, username) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, default)
+        (?, ?, ?, ?, ?, ?, ?, ?)
 Hibernate: 
     insert 
     into
         users
-        (active, created_at, email, first_name, last_name, password, updated_at, username, id) 
+        (active, created_at, email, first_name, last_name, password, updated_at, username) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, default)
-[2m2025-09-17T16:43:52.713+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m User registered successfully: achi
-[2m2025-09-17T16:43:52.734+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+        (?, ?, ?, ?, ?, ?, ?, ?)
+[2m2025-09-18T14:47:06.298+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-4][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m User registered successfully: condor
+[2m2025-09-18T14:47:06.319+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-6][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         w1_0.id,
         w1_0.active,
@@ -778,7 +303,7 @@ Hibernate:
         wallets w1_0 
     where
         w1_0.user_id=?
-[2m2025-09-17T16:43:52.737+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-3][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:06.326+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         w1_0.id,
         w1_0.active,
@@ -808,7 +333,7 @@ Hibernate:
         wallets w1_0 
     where
         w1_0.user_id=?
-[2m2025-09-17T16:43:54.757+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:08.778+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [io-8080-exec-10][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         u1_0.id,
         u1_0.active,
@@ -862,23 +387,23 @@ Hibernate:
             on u1_0.id=w1_0.user_id 
     where
         u1_0.id=?
-[2m2025-09-17T16:43:54.925+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36mc.c.service.TronWalletService           [0;39m [2m:[0;39m Generated Tron key pair: Tbd7af0bca8f65d1adda583567cc3dd0958
-[2m2025-09-17T16:43:54.928+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:08.908+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [io-8080-exec-10][0;39m [2m[0;39m[36mc.c.service.TronWalletService           [0;39m [2m:[0;39m Generated Tron key pair: Tbfdd2ec51d260793aa2e358b47abbc217c
+[2m2025-09-18T14:47:08.910+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [io-8080-exec-10][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     insert 
     into
         wallets
-        (active, address, balance, created_at, currency, private_key, updated_at, user_id, id) 
+        (active, address, balance, created_at, currency, private_key, updated_at, user_id) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, default)
+        (?, ?, ?, ?, ?, ?, ?, ?)
 Hibernate: 
     insert 
     into
         wallets
-        (active, address, balance, created_at, currency, private_key, updated_at, user_id, id) 
+        (active, address, balance, created_at, currency, private_key, updated_at, user_id) 
     values
-        (?, ?, ?, ?, ?, ?, ?, ?, default)
-[2m2025-09-17T16:43:54.928+04:00[0;39m [32m INFO[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36mcom.cryptowallet.service.WalletService  [0;39m [2m:[0;39m Wallet created successfully: Tbd7af0bca8f65d1adda583567cc3dd0958 for user: achi
-[2m2025-09-17T16:43:54.940+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-6][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+        (?, ?, ?, ?, ?, ?, ?, ?)
+[2m2025-09-18T14:47:08.915+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [io-8080-exec-10][0;39m [2m[0;39m[36mcom.cryptowallet.service.WalletService  [0;39m [2m:[0;39m Wallet created successfully: Tbfdd2ec51d260793aa2e358b47abbc217c for user: condor
+[2m2025-09-18T14:47:08.923+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-1][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
         w1_0.id,
         w1_0.active,
@@ -908,137 +433,224 @@ Hibernate:
         wallets w1_0 
     where
         w1_0.user_id=?
-[2m2025-09-17T16:43:59.086+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-7][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+[2m2025-09-18T14:47:10.375+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
-        t1_0.id,
-        t1_0.amount,
-        t1_0.block_number,
-        t1_0.confirmations,
-        t1_0.created_at,
-        t1_0.fee,
-        t1_0.from_address,
-        t1_0.memo,
-        t1_0.status,
-        t1_0.to_address,
-        t1_0.tx_hash,
-        t1_0.type,
-        t1_0.wallet_id 
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username,
+        w1_0.user_id,
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at 
     from
-        transactions t1_0 
-    join
+        users u1_0 
+    left join
         wallets w1_0 
-            on w1_0.id=t1_0.wallet_id 
+            on u1_0.id=w1_0.user_id 
     where
-        w1_0.user_id=? 
-    order by
-        t1_0.created_at desc
+        u1_0.id=?
 Hibernate: 
     select
-        t1_0.id,
-        t1_0.amount,
-        t1_0.block_number,
-        t1_0.confirmations,
-        t1_0.created_at,
-        t1_0.fee,
-        t1_0.from_address,
-        t1_0.memo,
-        t1_0.status,
-        t1_0.to_address,
-        t1_0.tx_hash,
-        t1_0.type,
-        t1_0.wallet_id 
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username,
+        w1_0.user_id,
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at 
     from
-        transactions t1_0 
-    join
+        users u1_0 
+    left join
         wallets w1_0 
-            on w1_0.id=t1_0.wallet_id 
+            on u1_0.id=w1_0.user_id 
     where
-        w1_0.user_id=? 
-    order by
-        t1_0.created_at desc
-[2m2025-09-17T16:43:59.098+04:00[0;39m [32mDEBUG[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-8][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+        u1_0.id=?
+[2m2025-09-18T14:47:10.405+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36mc.c.service.BitcoinWalletService        [0;39m [2m:[0;39m Generated Bitcoin key pair: bc1q0385bfbdf44a227e7c5053cbf665dfe2
+[2m2025-09-18T14:47:10.407+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    insert 
+    into
+        wallets
+        (active, address, balance, created_at, currency, private_key, updated_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: 
+    insert 
+    into
+        wallets
+        (active, address, balance, created_at, currency, private_key, updated_at, user_id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?)
+[2m2025-09-18T14:47:10.410+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-2][0;39m [2m[0;39m[36mcom.cryptowallet.service.WalletService  [0;39m [2m:[0;39m Wallet created successfully: bc1q0385bfbdf44a227e7c5053cbf665dfe2 for user: condor
+[2m2025-09-18T14:47:10.421+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-3][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
     select
-        t1_0.id,
-        t1_0.amount,
-        t1_0.block_number,
-        t1_0.confirmations,
-        t1_0.created_at,
-        t1_0.fee,
-        t1_0.from_address,
-        t1_0.memo,
-        t1_0.status,
-        t1_0.to_address,
-        t1_0.tx_hash,
-        t1_0.type,
-        t1_0.wallet_id 
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
     from
-        transactions t1_0 
-    join
         wallets w1_0 
-            on w1_0.id=t1_0.wallet_id 
     where
-        w1_0.user_id=? 
-    order by
-        t1_0.created_at desc
+        w1_0.user_id=?
 Hibernate: 
     select
-        t1_0.id,
-        t1_0.amount,
-        t1_0.block_number,
-        t1_0.confirmations,
-        t1_0.created_at,
-        t1_0.fee,
-        t1_0.from_address,
-        t1_0.memo,
-        t1_0.status,
-        t1_0.to_address,
-        t1_0.tx_hash,
-        t1_0.type,
-        t1_0.wallet_id 
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
     from
-        transactions t1_0 
-    join
         wallets w1_0 
-            on w1_0.id=t1_0.wallet_id 
     where
-        w1_0.user_id=? 
-    order by
-        t1_0.created_at desc
-[2m2025-09-17T16:55:25.102+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m610ms).
-[2m2025-09-17T17:59:25.505+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Retrograde clock change detected (housekeeper delta=29s858ms), soft-evicting connections from pool.
-[2m2025-09-17T19:06:46.015+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m49s735ms).
-[2m2025-09-17T19:22:16.325+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m269ms).
-[2m2025-09-17T19:36:52.185+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14m35s860ms).
-[2m2025-09-17T21:02:08.263+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h24m46s67ms).
-[2m2025-09-17T22:03:17.862+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h1m9s602ms).
-[2m2025-09-17T22:21:21.113+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m33s232ms).
-[2m2025-09-17T22:27:12.542+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m51s422ms).
-[2m2025-09-17T22:32:17.464+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m34s871ms).
-[2m2025-09-18T00:30:28.100+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m39s241ms).
-[2m2025-09-18T00:46:21.183+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m53s85ms).
-[2m2025-09-18T01:20:14.198+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=33m53s16ms).
-[2m2025-09-18T02:09:10.484+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48m56s285ms).
-[2m2025-09-18T02:12:54.771+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m14s271ms).
-[2m2025-09-18T02:30:31.663+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m36s893ms).
-[2m2025-09-18T03:55:23.647+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h24m51s983ms).
-[2m2025-09-18T04:43:19.996+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47m26s315ms).
-[2m2025-09-18T06:10:52.859+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h27m32s863ms).
-[2m2025-09-18T07:02:32.136+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=51m9s264ms).
-[2m2025-09-18T07:27:45.428+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=25m13s292ms).
-[2m2025-09-18T08:01:45.992+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=34m565ms).
-[2m2025-09-18T08:12:17.782+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m31s790ms).
-[2m2025-09-18T08:45:05.449+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=32m47s667ms).
-[2m2025-09-18T08:47:09.850+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m34s375ms).
-[2m2025-09-18T09:04:24.522+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m14s672ms).
-[2m2025-09-18T09:13:17.211+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m52s688ms).
-[2m2025-09-18T09:45:44.166+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=32m26s956ms).
-[2m2025-09-18T10:14:14.561+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=28m30s395ms).
-[2m2025-09-18T10:23:32.827+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m18s266ms).
-[2m2025-09-18T10:28:21.730+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m18s900ms).
-[2m2025-09-18T10:37:43.325+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m51s590ms).
-[2m2025-09-18T10:47:18.476+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m35s152ms).
-[2m2025-09-18T10:59:24.322+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m51s182ms).
-[2m2025-09-18T11:21:47.734+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m52s903ms).
-[2m2025-09-18T11:33:17.713+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m59s941ms).
-[2m2025-09-18T11:58:32.369+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m14s536ms).
-[2m2025-09-18T12:02:48.261+04:00[0;39m [33m WARN[0;39m [35m15297[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [l-1 housekeeper][0;39m [2m[0;39m[36mcom.zaxxer.hikari.pool.HikariPool       [0;39m [2m:[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m45s870ms).
+        w1_0.user_id=?
+[2m2025-09-18T14:51:27.060+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+Hibernate: 
+    select
+        u1_0.id,
+        u1_0.active,
+        u1_0.created_at,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.password,
+        u1_0.updated_at,
+        u1_0.username 
+    from
+        users u1_0 
+    where
+        u1_0.username=?
+[2m2025-09-18T14:51:27.084+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        w1_0.user_id,
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?
+Hibernate: 
+    select
+        w1_0.user_id,
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?
+[2m2025-09-18T14:51:27.188+04:00[0;39m [32m INFO[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-5][0;39m [2m[0;39m[36mcom.cryptowallet.service.UserService    [0;39m [2m:[0;39m User authenticated successfully: condor
+[2m2025-09-18T14:51:27.211+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-7][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?
+Hibernate: 
+    select
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?
+[2m2025-09-18T14:51:27.226+04:00[0;39m [32mDEBUG[0;39m [35m21355[0;39m [2m---[0;39m [2m[crypto-wallet-backend] [nio-8080-exec-8][0;39m [2m[0;39m[36morg.hibernate.SQL                       [0;39m [2m:[0;39m 
+    select
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?
+Hibernate: 
+    select
+        w1_0.id,
+        w1_0.active,
+        w1_0.address,
+        w1_0.balance,
+        w1_0.created_at,
+        w1_0.currency,
+        w1_0.private_key,
+        w1_0.updated_at,
+        w1_0.user_id 
+    from
+        wallets w1_0 
+    where
+        w1_0.user_id=?

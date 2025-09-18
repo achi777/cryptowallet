@@ -117,6 +117,19 @@ fi
 stop_port_processes 8080 "Backend Service"
 stop_port_processes 3000 "Frontend Service"
 
+# Stop PostgreSQL Docker container
+print_status "🐘 Stopping PostgreSQL database..."
+if docker ps | grep -q "cryptowallet-postgres"; then
+    if command -v docker-compose &> /dev/null; then
+        docker-compose down postgres
+    else
+        docker compose down postgres
+    fi
+    print_success "PostgreSQL database stopped"
+else
+    print_status "PostgreSQL database was not running"
+fi
+
 # Stop any Java processes that might be hanging
 print_status "🧹 Cleaning up any remaining Java processes..."
 java_pids=$(pgrep -f "java.*spring-boot")
