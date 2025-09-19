@@ -6,25 +6,45 @@ import UserRegistrationForm from './components/UserRegistration';
 import WalletList from './components/WalletList';
 import TransactionForm from './components/TransactionForm';
 import TransactionHistory from './components/TransactionHistory';
-import { Wallet, User } from './types';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminDashboard from './components/admin/AdminDashboard';
+import { Wallet, User, Admin } from './types';
 
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null);
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null);
   const [activeTab, setActiveTab] = useState<'wallets' | 'send' | 'history'>('wallets');
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [authMode, setAuthMode] = useState<'login' | 'register' | 'admin'>('login');
+  const [isAdminMode, setIsAdminMode] = useState<boolean>(false);
 
-  // Check for stored user session on app load
+  // Check for stored user/admin session on app load
   useEffect(() => {
+    // Check URL for admin mode
+    if (window.location.pathname.includes('/admin')) {
+      setIsAdminMode(true);
+      setAuthMode('admin');
+    }
+    
     const storedUser = localStorage.getItem('cryptoWalletUser');
-    if (storedUser) {
+    const storedAdmin = localStorage.getItem('cryptoWalletAdmin');
+    
+    if (storedUser && !isAdminMode) {
       try {
         setCurrentUser(JSON.parse(storedUser));
       } catch (error) {
         localStorage.removeItem('cryptoWalletUser');
       }
     }
-  }, []);
+    
+    if (storedAdmin && isAdminMode) {
+      try {
+        setCurrentAdmin(JSON.parse(storedAdmin));
+      } catch (error) {
+        localStorage.removeItem('cryptoWalletAdmin');
+      }
+    }
+  }, [isAdminMode]);
 
   const handleLoginSuccess = (user: User) => {
     setCurrentUser(user);
@@ -36,11 +56,36 @@ function App() {
     localStorage.setItem('cryptoWalletUser', JSON.stringify(user));
   };
 
+  const handleAdminLoginSuccess = (admin: Admin) => {
+    setCurrentAdmin(admin);
+    localStorage.setItem('cryptoWalletAdmin', JSON.stringify(admin));
+  };
+
   const handleLogout = () => {
     setCurrentUser(null);
+    setCurrentAdmin(null);
     setSelectedWallet(null);
     setActiveTab('wallets');
     localStorage.removeItem('cryptoWalletUser');
+    localStorage.removeItem('cryptoWalletAdmin');
+    setIsAdminMode(false);
+    setAuthMode('login');
+  };
+
+  const switchToAdminMode = () => {
+    setIsAdminMode(true);
+    setAuthMode('admin');
+    setCurrentUser(null);
+    localStorage.removeItem('cryptoWalletUser');
+    window.history.pushState({}, '', '/admin');
+  };
+
+  const switchToUserMode = () => {
+    setIsAdminMode(false);
+    setAuthMode('login');
+    setCurrentAdmin(null);
+    localStorage.removeItem('cryptoWalletAdmin');
+    window.history.pushState({}, '', '/');
   };
 
   const handleWalletSelect = (wallet: Wallet) => {
@@ -53,13 +98,33 @@ function App() {
     setSelectedWallet(null);
   };
 
-  // Authentication screens
+  // Admin Panel
+  if (isAdminMode) {
+    if (!currentAdmin) {
+      return (
+        <AdminLogin 
+          onLoginSuccess={handleAdminLoginSuccess}
+          onBackToUser={switchToUserMode}
+        />
+      );
+    } else {
+      return (
+        <AdminDashboard 
+          currentAdmin={currentAdmin}
+          onLogout={handleLogout}
+        />
+      );
+    }
+  }
+
+  // User Authentication screens
   if (!currentUser) {
     if (authMode === 'login') {
       return (
         <Login 
           onLoginSuccess={handleLoginSuccess}
           onSwitchToRegister={() => setAuthMode('register')}
+          onSwitchToAdmin={switchToAdminMode}
         />
       );
     } else {

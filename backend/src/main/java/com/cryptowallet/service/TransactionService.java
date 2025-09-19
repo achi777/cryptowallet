@@ -8,6 +8,8 @@ import com.cryptowallet.repository.TransactionRepository;
 import com.cryptowallet.repository.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -158,6 +160,76 @@ public class TransactionService {
             
             log.info("Incoming transaction processed: {} to {}", txHash, toAddress);
         }
+    }
+    
+    public Page<TransactionDto> getAllTransactionsPaged(Pageable pageable) {
+        Page<Transaction> transactions = transactionRepository.findAll(pageable);
+        return transactions.map(this::convertToDto);
+    }
+    
+    // Create sample transactions for testing
+    @Transactional
+    public void createSampleTransactions() {
+        List<Wallet> wallets = walletRepository.findAll();
+        if (wallets.size() < 2) return;
+        
+        // Update wallet balances first
+        Wallet wallet1 = wallets.get(0);
+        Wallet wallet2 = wallets.get(1);
+        
+        wallet1.setBalance(new BigDecimal("1.50000000"));
+        wallet2.setBalance(new BigDecimal("0.00100000"));
+        walletRepository.save(wallet1);
+        walletRepository.save(wallet2);
+        
+        // Create sample transactions
+        Transaction tx1 = Transaction.builder()
+                .txHash("test_tx_1_" + System.currentTimeMillis())
+                .fromAddress("test_sender_address_1")
+                .toAddress(wallet1.getAddress())
+                .amount(new BigDecimal("1.50000000"))
+                .fee(new BigDecimal("0.00001000"))
+                .type(Transaction.TransactionType.RECEIVE)
+                .status(Transaction.TransactionStatus.CONFIRMED)
+                .wallet(wallet1)
+                .blockNumber(800000L)
+                .confirmations(6)
+                .memo("Test incoming transaction")
+                .build();
+        
+        Transaction tx2 = Transaction.builder()
+                .txHash("test_tx_2_" + System.currentTimeMillis())
+                .fromAddress(wallet2.getAddress())
+                .toAddress("test_recipient_address")
+                .amount(new BigDecimal("0.00050000"))
+                .fee(new BigDecimal("0.00000500"))
+                .type(Transaction.TransactionType.SEND)
+                .status(Transaction.TransactionStatus.CONFIRMED)
+                .wallet(wallet2)
+                .blockNumber(800001L)
+                .confirmations(3)
+                .memo("Test outgoing transaction")
+                .build();
+        
+        Transaction tx3 = Transaction.builder()
+                .txHash("test_tx_3_" + System.currentTimeMillis())
+                .fromAddress("test_sender_address_2")
+                .toAddress(wallet2.getAddress())
+                .amount(new BigDecimal("0.00100000"))
+                .fee(new BigDecimal("0.00000200"))
+                .type(Transaction.TransactionType.RECEIVE)
+                .status(Transaction.TransactionStatus.PENDING)
+                .wallet(wallet2)
+                .blockNumber(null)
+                .confirmations(0)
+                .memo("Pending transaction")
+                .build();
+        
+        transactionRepository.save(tx1);
+        transactionRepository.save(tx2);
+        transactionRepository.save(tx3);
+        
+        log.info("Created sample transactions for testing");
     }
     
     private TransactionDto convertToDto(Transaction transaction) {

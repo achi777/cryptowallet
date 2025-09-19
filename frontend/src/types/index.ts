@@ -26,6 +26,7 @@ export interface LoginCredentials {
 export interface AuthResponse {
   message: string;
   user: User | null;
+  admin: Admin | null;
   success: boolean;
 }
 
@@ -79,4 +80,71 @@ export enum TransactionStatus {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
   FAILED = 'FAILED'
+}
+
+// Admin types
+export interface Admin {
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: AdminRole;
+  active: boolean;
+  lastLogin?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminRegistration {
+  username: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  role: AdminRole;
+}
+
+export interface AdminLogin {
+  username: string;
+  password: string;
+}
+
+export interface SystemStats {
+  totalUsers: number;
+  activeUsers: number;
+  totalWallets: number;
+  bitcoinWallets: number;
+  usdtWallets: number;
+  totalTransactions: number;
+  pendingTransactions: number;
+  confirmedTransactions: number;
+  failedTransactions: number;
+  totalBitcoinVolume: number;
+  totalUsdtVolume: number;
+  usersRegisteredToday: number;
+  transactionsToday: number;
+  lastUpdated: string;
+}
+
+export interface PageResponse<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  first: boolean;
+  last: boolean;
+}
+
+export interface ChangePassword {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export enum AdminRole {
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
+  SUPPORT = 'SUPPORT'
 }

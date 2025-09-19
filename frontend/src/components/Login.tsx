@@ -5,9 +5,10 @@ import { LoginCredentials, User } from '../types';
 interface LoginProps {
   onLoginSuccess: (user: User) => void;
   onSwitchToRegister: () => void;
+  onSwitchToAdmin?: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister }) => {
+const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister, onSwitchToAdmin }) => {
   const [formData, setFormData] = useState<LoginCredentials>({
     username: '',
     password: '',
@@ -127,6 +128,24 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister }) => 
                   Sign up here
                 </button>
               </p>
+              {onSwitchToAdmin && (
+                <p className="text-muted mt-3">
+                  <button
+                    type="button"
+                    onClick={onSwitchToAdmin}
+                    className="text-secondary"
+                    style={{ 
+                      background: 'none', 
+                      border: 'none', 
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      fontWeight: '600'
+                    }}
+                  >
+                    🛡️ Admin Panel
+                  </button>
+                </p>
+              )}
             </div>
           </form>
         </div>

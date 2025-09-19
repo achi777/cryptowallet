@@ -22,4 +22,19 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Set timezone
 SET timezone = 'UTC';
 
+-- Create initial admin user (password: admin123)
+-- Note: In production, use a more secure password and change immediately
+INSERT INTO admins (username, email, password, first_name, last_name, role, active, created_at, updated_at)
+VALUES (
+    'admin',
+    'admin@cryptowallet.com',
+    '$2a$10$N.zmdr9k7uOCQb376NoUnuTUDqIcpU49dZCbdeD2pnUq7BKNT8wXS', -- admin123
+    'System',
+    'Administrator',
+    'SUPER_ADMIN',
+    true,
+    NOW(),
+    NOW()
+) ON CONFLICT (username) DO NOTHING;
+
 COMMENT ON DATABASE cryptowallet IS 'Crypto Wallet Application Database';

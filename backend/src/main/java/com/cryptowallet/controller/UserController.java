@@ -26,10 +26,16 @@ public class UserController {
     public ResponseEntity<AuthResponseDto> registerUser(@Valid @RequestBody UserRegistrationDto registrationDto) {
         try {
             UserDto user = userService.registerUser(registrationDto);
-            AuthResponseDto response = new AuthResponseDto("User registered successfully", user, true);
+            AuthResponseDto response = new AuthResponseDto();
+            response.setMessage("User registered successfully");
+            response.setUser(user);
+            response.setSuccess(true);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {
-            AuthResponseDto response = new AuthResponseDto(e.getMessage(), null, false);
+            AuthResponseDto response = new AuthResponseDto();
+            response.setMessage(e.getMessage());
+            response.setUser(null);
+            response.setSuccess(false);
             return ResponseEntity.badRequest().body(response);
         }
     }
@@ -39,10 +45,16 @@ public class UserController {
         Optional<UserDto> userOpt = userService.authenticateUser(loginDto.getUsername(), loginDto.getPassword());
         
         if (userOpt.isPresent()) {
-            AuthResponseDto response = new AuthResponseDto("Login successful", userOpt.get(), true);
+            AuthResponseDto response = new AuthResponseDto();
+            response.setMessage("Login successful");
+            response.setUser(userOpt.get());
+            response.setSuccess(true);
             return ResponseEntity.ok(response);
         } else {
-            AuthResponseDto response = new AuthResponseDto("Invalid username or password", null, false);
+            AuthResponseDto response = new AuthResponseDto();
+            response.setMessage("Invalid username or password");
+            response.setUser(null);
+            response.setSuccess(false);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }

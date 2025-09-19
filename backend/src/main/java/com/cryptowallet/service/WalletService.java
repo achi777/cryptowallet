@@ -8,6 +8,8 @@ import com.cryptowallet.repository.UserRepository;
 import com.cryptowallet.repository.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -119,6 +121,11 @@ public class WalletService {
         walletRepository.save(wallet);
         
         log.info("Wallet deactivated: {}", wallet.getAddress());
+    }
+    
+    public Page<WalletDto> getAllWalletsPaged(Pageable pageable) {
+        Page<Wallet> wallets = walletRepository.findAll(pageable);
+        return wallets.map(this::convertToDto);
     }
     
     private WalletDto convertToDto(Wallet wallet) {
