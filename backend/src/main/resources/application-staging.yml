@@ -1,0 +1,42 @@
+# Staging profile — single-container deploy via portal-deploy.
+# H2 in-memory DB so the JAR is self-sufficient without an external Postgres.
+# (Project convention is YAML; matches application.yml / application-h2.yml.)
+spring:
+  application:
+    name: crypto-wallet-backend
+
+  datasource:
+    url: jdbc:h2:mem:cryptowallet;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  # Lock down H2 console — staging is internet-reachable, console is not for prod.
+  h2:
+    console:
+      enabled: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  # Static SPA routing — Spring serves bundled React build for unknown paths.
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+server:
+  port: 8080
+
+crypto:
+  bitcoin:
+    network: test
+  tron:
+    api-url: https://api.trongrid.io
+    private-key: ${TRON_PRIVATE_KEY:}
+
+logging:
+  level:
+    com.cryptowallet: INFO
