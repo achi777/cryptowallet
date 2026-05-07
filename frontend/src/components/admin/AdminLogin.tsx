@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Admin, AdminLogin as AdminLoginType } from '../../types';
-import { adminAuthApi } from '../../services/adminApi';
+import { adminAuthApi } from '../../services/api';
 
 interface AdminLoginProps {
   onLoginSuccess: (admin: Admin) => void;
@@ -29,8 +29,8 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackToUser })
 
     try {
       const response = await adminAuthApi.login(formData);
-      if (response.success && response.admin) {
-        onLoginSuccess(response.admin);
+      if (response.success && response.user) {
+        onLoginSuccess(response.user);
       } else {
         setError(response.message || 'Login failed');
       }

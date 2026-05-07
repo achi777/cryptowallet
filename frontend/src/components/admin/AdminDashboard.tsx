@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Admin, SystemStats } from '../../types';
-import { adminDashboardApi } from '../../services/adminApi';
+import { adminDashboardApi } from '../../services/api';
 import AdminStats from './AdminStats';
 import UserManagement from './UserManagement';
 import WalletManagement from './WalletManagement';
@@ -129,7 +129,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentAdmin, onLogout 
             Welcome, {currentAdmin.firstName}! 👋
           </h1>
           <p className="text-muted">
-            Administrative Dashboard - {currentAdmin.role.replace('_', ' ')}
+            Administrative Dashboard - {(currentAdmin.role ?? 'ADMIN').replace('_', ' ')}
           </p>
           {stats && (
             <div className="text-sm text-muted mt-2">
