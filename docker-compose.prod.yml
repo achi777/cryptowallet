@@ -8,8 +8,11 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cryptowallet
-      SPRING_DATASOURCE_USERNAME: cryptouser
-      SPRING_DATASOURCE_PASSWORD: crypto123
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-cryptouser}
+      # Required — must come from host env / secret manager (see .env.example).
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:?set SPRING_DATASOURCE_PASSWORD in env}
+      # Required — base64 of 32 raw bytes: `openssl rand -base64 32`. See architecture/SECURITY.md.
+      CRYPTOWALL_KEK_BASE64: ${CRYPTOWALL_KEK_BASE64:?set CRYPTOWALL_KEK_BASE64 in env}
     depends_on:
       postgres:
         condition: service_healthy
@@ -19,8 +22,8 @@ services:
     container_name: cryptowallet-postgres
     environment:
       POSTGRES_DB: cryptowallet
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in env}
     ports:
       - "5433:5432"
     volumes:

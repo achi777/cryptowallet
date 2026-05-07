@@ -1,5 +1,6 @@
 package com.cryptowallet.entity;
 
+import com.cryptowallet.security.EncryptedStringConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +29,13 @@ public class Wallet {
     @Column(unique = true, nullable = false)
     private String address;
     
-    @Column(name = "private_key", nullable = false)
+    /**
+     * Wallet signing key — encrypted-at-rest via {@link EncryptedStringConverter}
+     * (AES-256-GCM, app-DEK derived from the KEK). Column widened to hold the
+     * base64url IV||ciphertext||tag payload. See SECURITY.md.
+     */
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(name = "private_key", nullable = false, length = 1024)
     private String privateKey;
     
     @Enumerated(EnumType.STRING)

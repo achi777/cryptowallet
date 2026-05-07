@@ -3,10 +3,10 @@ spring:
     name: crypto-wallet-backend
   
   datasource:
-    url: jdbc:postgresql://localhost:5433/cryptowallet
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/cryptowallet}
     driver-class-name: org.postgresql.Driver
-    username: cryptouser
-    password: crypto123
+    username: ${SPRING_DATASOURCE_USERNAME:cryptouser}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
   
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -27,6 +27,12 @@ crypto:
   tron:
     api-url: https://api.trongrid.io
     private-key: ${TRON_PRIVATE_KEY:}
+
+# Master key-encryption-key (KEK) for at-rest encryption — base64 of 32 raw bytes.
+# Real value MUST come from CRYPTOWALL_KEK_BASE64 (env). See architecture/SECURITY.md.
+app:
+  security:
+    kek: ${CRYPTOWALL_KEK_BASE64:}
   
 logging:
   level:

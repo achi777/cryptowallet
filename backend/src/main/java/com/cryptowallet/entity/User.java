@@ -40,7 +40,16 @@ public class User {
     private String lastName;
     
     private Boolean active = true;
-    
+
+    /**
+     * Per-user data-encryption-key, wrapped (AES-256-GCM) by the master KEK.
+     * Generated on registration; used by per-user encryption flows. See
+     * {@code com.cryptowallet.security.CryptoService} and SECURITY.md.
+     * Stored as a base64url payload — text column for portability across H2/Postgres.
+     */
+    @Column(name = "wrapped_dek", length = 512)
+    private String wrappedDek;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Wallet> wallets = new ArrayList<>();
     

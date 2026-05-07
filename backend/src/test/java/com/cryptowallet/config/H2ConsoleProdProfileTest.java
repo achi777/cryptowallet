@@ -26,7 +26,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     "spring.datasource.driver-class-name=org.h2.Driver",
     "spring.datasource.username=sa",
     "spring.datasource.password=",
-    "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect"
+    "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
+    // CryptoService fails-fast in prod without a KEK — supply a test value so the context boots.
+    "app.security.kek=AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8="
 })
 class H2ConsoleProdProfileTest {
 

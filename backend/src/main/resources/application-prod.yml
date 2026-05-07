@@ -9,7 +9,8 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/cryptowallet}
     driver-class-name: org.postgresql.Driver
     username: ${SPRING_DATASOURCE_USERNAME:cryptouser}
-    password: ${SPRING_DATASOURCE_PASSWORD:crypto123}
+    # No default — operators must supply via env (compose/k8s secrets). Empty value triggers a clear failure.
+    password: ${SPRING_DATASOURCE_PASSWORD:}
 
   # H2 console must NEVER be reachable in prod.
   h2:
@@ -44,6 +45,11 @@ crypto:
   tron:
     api-url: https://api.trongrid.io
     private-key: ${TRON_PRIVATE_KEY:}
+
+# Master KEK — REQUIRED in prod. CryptoService fails-fast if absent.
+app:
+  security:
+    kek: ${CRYPTOWALL_KEK_BASE64:}
 
 logging:
   level:
