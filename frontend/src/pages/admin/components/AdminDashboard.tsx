@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Admin, SystemStats } from '../../../types';
-import { adminDashboardApi } from '../../../services/api';
+import React, { useState } from 'react';
+import { Admin } from '../../../types';
+import { useAdminStats } from '../../../hooks';
 import AdminStats from './AdminStats';
 import UserManagement from './UserManagement';
 import WalletManagement from './WalletManagement';
@@ -16,23 +16,11 @@ type ActiveTab = 'dashboard' | 'users' | 'wallets' | 'transactions' | 'settings'
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ currentAdmin, onLogout }) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
-  const [stats, setStats] = useState<SystemStats | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    loadStats();
-  }, []);
-
-  const loadStats = async () => {
-    try {
-      setLoading(true);
-      const systemStats = await adminDashboardApi.getStats();
-      setStats(systemStats);
-    } catch (error) {
-      console.error('Failed to load system stats:', error);
-    } finally {
-      setLoading(false);
-    }
+  const statsQuery = useAdminStats();
+  const stats = statsQuery.data ?? null;
+  const loading = statsQuery.isPending;
+  const loadStats = () => {
+    statsQuery.refetch();
   };
 
   const renderContent = () => {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { transactionApi } from '../services/api';
+import React from 'react';
+import { useWalletTransactions, useUserTransactions } from '../hooks';
 import { Transaction, TransactionType, TransactionStatus } from '../types';
 
 interface TransactionHistoryProps {
@@ -8,33 +8,17 @@ interface TransactionHistoryProps {
 }
 
 const TransactionHistory: React.FC<TransactionHistoryProps> = ({ walletId, userId }) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const walletQuery = useWalletTransactions(walletId);
+  const userQuery = useUserTransactions(walletId ? undefined : userId);
+  const activeQuery = walletId ? walletQuery : userQuery;
+  const transactions: Transaction[] = activeQuery.data ?? [];
+  const loading = (walletId || userId) ? activeQuery.isPending : false;
+  const error = activeQuery.error
+    ? ((activeQuery.error as any).response?.data?.message || 'Failed to load transactions')
+    : null;
 
-  useEffect(() => {
-    loadTransactions();
-  }, [walletId, userId]);
-
-  const loadTransactions = async () => {
-    if (!walletId && !userId) return;
-    
-    setLoading(true);
-    try {
-      let txns: Transaction[];
-      if (walletId) {
-        txns = await transactionApi.getWalletTransactions(walletId);
-      } else if (userId) {
-        txns = await transactionApi.getUserTransactions(userId);
-      } else {
-        txns = [];
-      }
-      setTransactions(txns);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load transactions');
-    } finally {
-      setLoading(false);
-    }
+  const loadTransactions = () => {
+    activeQuery.refetch();
   };
 
   const getStatusColor = (status: TransactionStatus) => {

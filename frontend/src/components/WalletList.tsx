@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { walletApi } from '../services/api';
+import React, { useState } from 'react';
+import { useUserWallets, useCreateWallet, useRefreshBalance } from '../hooks';
 import { Wallet, CryptoCurrency } from '../types';
 
 interface WalletListProps {
@@ -8,43 +8,32 @@ interface WalletListProps {
 }
 
 const WalletList: React.FC<WalletListProps> = ({ userId, onWalletSelect }) => {
-  const [wallets, setWallets] = useState<Wallet[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [creating, setCreating] = useState(false);
+  const walletsQuery = useUserWallets(userId);
+  const createMutation = useCreateWallet();
+  const refreshMutation = useRefreshBalance();
+  const wallets: Wallet[] = walletsQuery.data ?? [];
+  const loading = walletsQuery.isPending;
+  const creating = createMutation.isPending;
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadWallets();
-  }, [userId]);
-
-  const loadWallets = async () => {
-    setLoading(true);
-    try {
-      const userWallets = await walletApi.getUserWallets(userId);
-      setWallets(userWallets);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to load wallets');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const queryError =
+    (walletsQuery.error as any)?.response?.data?.message ||
+    (walletsQuery.error ? 'Failed to load wallets' : null);
+  const displayError = error || queryError;
 
   const createWallet = async (currency: CryptoCurrency) => {
-    setCreating(true);
+    setError(null);
     try {
-      await walletApi.create(userId, { currency });
-      await loadWallets();
+      await createMutation.mutateAsync({ userId, data: { currency } });
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to create wallet');
-    } finally {
-      setCreating(false);
     }
   };
 
   const refreshBalance = async (walletId: number) => {
+    setError(null);
     try {
-      await walletApi.refreshBalance(walletId);
-      await loadWallets();
+      await refreshMutation.mutateAsync(walletId);
     } catch (err: any) {
       setError(err.response?.data?.message || 'Failed to refresh balance');
     }
@@ -109,9 +98,9 @@ const WalletList: React.FC<WalletListProps> = ({ userId, onWalletSelect }) => {
         </div>
       </div>
 
-      {error && (
+      {displayError && (
         <div className="alert alert-error">
-          {error}
+          {displayError}
         </div>
       )}
 

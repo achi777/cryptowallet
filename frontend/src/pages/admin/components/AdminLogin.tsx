@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Admin, AdminLogin as AdminLoginType } from '../../../types';
-import { adminAuthApi } from '../../../services/api';
+import { useAdminLogin } from '../../../hooks';
 
 interface AdminLoginProps {
   onLoginSuccess: (admin: Admin) => void;
@@ -13,7 +13,8 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackToUser })
     password: ''
   });
   const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const loginMutation = useAdminLogin();
+  const loading = loginMutation.isPending;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -24,11 +25,10 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackToUser })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
 
     try {
-      const response = await adminAuthApi.login(formData);
+      const response = await loginMutation.mutateAsync(formData);
       if (response.success && response.user) {
         onLoginSuccess(response.user);
       } else {
@@ -36,8 +36,6 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess, onBackToUser })
       }
     } catch (error: any) {
       setError(error.response?.data?.message || 'An error occurred during login');
-    } finally {
-      setLoading(false);
     }
   };
 

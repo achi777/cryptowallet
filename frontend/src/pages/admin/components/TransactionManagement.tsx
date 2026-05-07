@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Transaction, PageResponse, TransactionStatus, TransactionType } from '../../../types';
-import { adminDashboardApi } from '../../../services/api';
+import {
+  useAdminAllTransactions,
+  useAdminSearchTransactions,
+} from '../../../hooks';
+
+const EMPTY_PAGE: PageResponse<Transaction> = {
+  content: [],
+  totalElements: 0,
+  totalPages: 0,
+  size: 10,
+  number: 0,
+  first: true,
+  last: true,
+};
 
 const TransactionManagement: React.FC = () => {
-  const [transactions, setTransactions] = useState<PageResponse<Transaction>>({
-    content: [],
-    totalElements: 0,
-    totalPages: 0,
-    size: 10,
-    number: 0,
-    first: true,
-    last: true
-  });
-  const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [submittedQuery, setSubmittedQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>('createdAt');
@@ -21,45 +25,32 @@ const TransactionManagement: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<TransactionStatus | undefined>(undefined);
   const [typeFilter, setTypeFilter] = useState<TransactionType | undefined>(undefined);
 
-  useEffect(() => {
-    loadTransactions();
-  }, [currentPage, pageSize, sortBy, sortDir, statusFilter, typeFilter]);
-
-  const loadTransactions = async () => {
-    try {
-      setLoading(true);
-      let transactionResponse: PageResponse<Transaction>;
-      
-      if (searchQuery.trim()) {
-        transactionResponse = await adminDashboardApi.searchTransactions(searchQuery, currentPage, pageSize, sortBy, sortDir);
-      } else {
-        transactionResponse = await adminDashboardApi.getAllTransactions(
-          currentPage, 
-          pageSize, 
-          sortBy, 
-          sortDir, 
-          statusFilter, 
-          typeFilter
-        );
-      }
-      
-      setTransactions(transactionResponse);
-    } catch (error) {
-      console.error('Failed to load transactions:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const isSearching = submittedQuery.trim().length > 0;
+  const allQuery = useAdminAllTransactions({
+    page: currentPage,
+    size: pageSize,
+    sortBy,
+    sortDir,
+    status: statusFilter,
+    type: typeFilter,
+  });
+  const searchQueryResult = useAdminSearchTransactions(
+    { query: submittedQuery, page: currentPage, size: pageSize, sortBy, sortDir },
+    isSearching
+  );
+  const active = isSearching ? searchQueryResult : allQuery;
+  const transactions: PageResponse<Transaction> = active.data ?? EMPTY_PAGE;
+  const loading = active.isPending && active.fetchStatus !== 'idle';
 
   const handleSearch = () => {
     setCurrentPage(0);
-    loadTransactions();
+    setSubmittedQuery(searchQuery);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
+    setSubmittedQuery('');
     setCurrentPage(0);
-    loadTransactions();
   };
 
   const handlePageChange = (newPage: number) => {

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Admin, ChangePassword, AdminRegistration, AdminRole } from '../../../types';
-import { adminAuthApi } from '../../../services/api';
+import {
+  useUpdateAdmin,
+  useChangeAdminPassword,
+  useRegisterAdmin,
+} from '../../../hooks';
 
 interface AdminSettingsProps {
   currentAdmin: Admin;
@@ -8,8 +12,15 @@ interface AdminSettingsProps {
 
 const AdminSettings: React.FC<AdminSettingsProps> = ({ currentAdmin }) => {
   const [activeSection, setActiveSection] = useState<'profile' | 'password' | 'admins'>('profile');
-  const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info'; text: string } | null>(null);
+
+  const updateAdminMutation = useUpdateAdmin();
+  const changePasswordMutation = useChangeAdminPassword();
+  const registerAdminMutation = useRegisterAdmin();
+  const loading =
+    updateAdminMutation.isPending ||
+    changePasswordMutation.isPending ||
+    registerAdminMutation.isPending;
 
   // Profile update state
   const [profileData, setProfileData] = useState<Partial<Admin>>({
@@ -41,36 +52,29 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ currentAdmin }) => {
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      await adminAuthApi.update(currentAdmin.id, profileData);
+      await updateAdminMutation.mutateAsync({ id: currentAdmin.id, data: profileData });
       showMessage('success', 'Profile updated successfully');
     } catch (error: any) {
       showMessage('error', error.response?.data?.message || 'Failed to update profile');
-    } finally {
-      setLoading(false);
     }
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      await adminAuthApi.changePassword(currentAdmin.id, passwordData);
+      await changePasswordMutation.mutateAsync({ id: currentAdmin.id, passwords: passwordData });
       setPasswordData({ currentPassword: '', newPassword: '' });
       showMessage('success', 'Password changed successfully');
     } catch (error: any) {
       showMessage('error', error.response?.data?.message || 'Failed to change password');
-    } finally {
-      setLoading(false);
     }
   };
 
   const handleCreateAdmin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      await adminAuthApi.register(newAdminData);
+      await registerAdminMutation.mutateAsync(newAdminData);
       setNewAdminData({
         username: '',
         email: '',
@@ -82,8 +86,6 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ currentAdmin }) => {
       showMessage('success', 'New admin created successfully');
     } catch (error: any) {
       showMessage('error', error.response?.data?.message || 'Failed to create admin');
-    } finally {
-      setLoading(false);
     }
   };
 

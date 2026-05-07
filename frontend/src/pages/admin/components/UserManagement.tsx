@@ -1,63 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { User, PageResponse } from '../../../types';
-import { adminDashboardApi } from '../../../services/api';
+import React, { useState } from 'react';
+import { PageResponse, User } from '../../../types';
+import {
+  useAdminAllUsers,
+  useAdminSearchUsers,
+  useToggleUserStatus,
+} from '../../../hooks';
+
+const EMPTY_PAGE: PageResponse<User> = {
+  content: [],
+  totalElements: 0,
+  totalPages: 0,
+  size: 10,
+  number: 0,
+  first: true,
+  last: true,
+};
 
 const UserManagement: React.FC = () => {
-  const [users, setUsers] = useState<PageResponse<User>>({
-    content: [],
-    totalElements: 0,
-    totalPages: 0,
-    size: 10,
-    number: 0,
-    first: true,
-    last: true
-  });
-  const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [submittedQuery, setSubmittedQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>('createdAt');
   const [sortDir, setSortDir] = useState<string>('desc');
   const [activeFilter, setActiveFilter] = useState<boolean | undefined>(undefined);
 
-  useEffect(() => {
-    loadUsers();
-  }, [currentPage, pageSize, sortBy, sortDir, activeFilter]);
+  const isSearching = submittedQuery.trim().length > 0;
+  const allQuery = useAdminAllUsers({
+    page: currentPage,
+    size: pageSize,
+    sortBy,
+    sortDir,
+    active: activeFilter,
+  });
+  const searchQueryResult = useAdminSearchUsers(
+    { query: submittedQuery, page: currentPage, size: pageSize, sortBy, sortDir },
+    isSearching
+  );
+  const active = isSearching ? searchQueryResult : allQuery;
+  const users: PageResponse<User> = active.data ?? EMPTY_PAGE;
+  const loading = active.isPending && active.fetchStatus !== 'idle';
 
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      let userResponse: PageResponse<User>;
-      
-      if (searchQuery.trim()) {
-        userResponse = await adminDashboardApi.searchUsers(searchQuery, currentPage, pageSize, sortBy, sortDir);
-      } else {
-        userResponse = await adminDashboardApi.getAllUsers(currentPage, pageSize, sortBy, sortDir, activeFilter);
-      }
-      
-      setUsers(userResponse);
-    } catch (error) {
-      console.error('Failed to load users:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const toggleStatusMutation = useToggleUserStatus();
 
   const handleSearch = () => {
     setCurrentPage(0);
-    loadUsers();
+    setSubmittedQuery(searchQuery);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
+    setSubmittedQuery('');
     setCurrentPage(0);
-    loadUsers();
   };
 
   const handleToggleUserStatus = async (userId: number) => {
     try {
-      await adminDashboardApi.toggleUserStatus(userId);
-      loadUsers(); // Refresh the list
+      await toggleStatusMutation.mutateAsync(userId);
     } catch (error) {
       console.error('Failed to toggle user status:', error);
       alert('Failed to update user status');
