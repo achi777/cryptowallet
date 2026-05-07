@@ -4,6 +4,7 @@ import com.cryptowallet.dto.UserDto;
 import com.cryptowallet.dto.UserRegistrationDto;
 import com.cryptowallet.entity.User;
 import com.cryptowallet.repository.UserRepository;
+import com.cryptowallet.security.CryptoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,16 +25,22 @@ public class UserService {
     
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    
+    private final CryptoService cryptoService;
+
     public UserDto registerUser(UserRegistrationDto registrationDto) {
         if (userRepository.existsByUsername(registrationDto.getUsername())) {
             throw new RuntimeException("Username already exists");
         }
-        
+
         if (userRepository.existsByEmail(registrationDto.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
-        
+
+        // Provision a per-user data-encryption-key, wrapped by the master KEK.
+        byte[] dek = cryptoService.generateDek();
+        String wrappedDek = cryptoService.wrapDek(dek);
+        java.util.Arrays.fill(dek, (byte) 0);
+
         User user = User.builder()
                 .username(registrationDto.getUsername())
                 .email(registrationDto.getEmail())
@@ -41,6 +48,7 @@ public class UserService {
                 .firstName(registrationDto.getFirstName())
                 .lastName(registrationDto.getLastName())
                 .active(true)
+                .wrappedDek(wrappedDek)
                 .build();
         
         User savedUser = userRepository.save(user);
