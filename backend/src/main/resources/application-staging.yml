@@ -48,21 +48,24 @@ crypto:
     private-key: ${TRON_PRIVATE_KEY:}
 
 # First-boot administrator bootstrap (consumed once by AdminBootstrapRunner).
-# When the password is empty, the runner logs a warning and skips — production
-# deploys are expected to set ADMIN_BOOTSTRAP_PASSWORD explicitly.
+# Defaults match ~/.openclaw/workspace/projects/CRYPTOWALL/ADMIN_CREDENTIALS.md so
+# the staging container provisions the documented admin even when the portal-deploy
+# daemon launches the JAR without an env file (Spring profile = staging only).
+# Production deploys override ADMIN_BOOTSTRAP_PASSWORD via env to a strong secret.
 admin:
   bootstrap:
     username: ${ADMIN_BOOTSTRAP_USERNAME:admin}
     email: ${ADMIN_BOOTSTRAP_EMAIL:admin@cryptowall.local}
-    password: ${ADMIN_BOOTSTRAP_PASSWORD:}
+    password: ${ADMIN_BOOTSTRAP_PASSWORD:XPaevIbyZ6klD5ZeZFeGIQ8h}
 
 # First-boot seeded customer bootstrap (consumed once by CustomerBootstrapRunner).
-# Same opt-in semantics as the admin bootstrap: empty password → no-op + WARN.
+# Defaults match ~/.openclaw/workspace/projects/CRYPTOWALL/USER_CREDENTIALS.md so the
+# validator's auth-walk-as-customer scenario can sign in on every fresh staging boot.
 customer:
   bootstrap:
     username: ${CUSTOMER_BOOTSTRAP_USERNAME:customer}
     email: ${CUSTOMER_BOOTSTRAP_EMAIL:customer@cryptowall.local}
-    password: ${CUSTOMER_BOOTSTRAP_PASSWORD:}
+    password: ${CUSTOMER_BOOTSTRAP_PASSWORD:V7vrlUZDh3MK2u99nGaC5Eyk}
 
 # Master KEK — optional in staging (deterministic dev-fallback used with a loud WARN).
 app:
