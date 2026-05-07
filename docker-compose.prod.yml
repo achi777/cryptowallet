@@ -1,0 +1,38 @@
+# Prod overlay — brings up Postgres alongside the app for production-like local runs.
+# Apply on top of docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+# This is NOT what portal-deploy uses; portal-deploy still single-runs the image
+# with the staging profile (H2 in-mem). See DEPLOY.md.
+services:
+  app:
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cryptowallet
+      SPRING_DATASOURCE_USERNAME: cryptouser
+      SPRING_DATASOURCE_PASSWORD: crypto123
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: cryptowallet-postgres
+    environment:
+      POSTGRES_DB: cryptowallet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cryptowallet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local

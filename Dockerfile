@@ -27,4 +27,8 @@ WORKDIR /app
 COPY --from=backend-build /app/backend/target/*.jar /app/app.jar
 EXPOSE 8080
 ENV SPRING_PROFILES_ACTIVE=staging
+# Spring Boot Actuator exposes /actuator/health (status only, never details).
+# Boot can take ~25s on cold start; first 30s is the start period.
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=3 \
+  CMD wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1
 ENTRYPOINT ["java","-jar","/app/app.jar"]
