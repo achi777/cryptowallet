@@ -12,6 +12,13 @@ services:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: staging
+      # First-boot admin bootstrap (AdminBootstrapRunner reads these once on a
+      # fresh H2 DB; subsequent restarts are a no-op). Mirrored in
+      # ~/.openclaw/workspace/projects/CRYPTOWALL/ADMIN_CREDENTIALS.md so the
+      # portal dashboard surfaces the same values to the project owner.
+      ADMIN_BOOTSTRAP_USERNAME: admin
+      ADMIN_BOOTSTRAP_EMAIL: admin@cryptowall.local
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-XPaevIbyZ6klD5ZeZFeGIQ8h}
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
