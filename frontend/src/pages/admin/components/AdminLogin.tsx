@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Admin, AdminLogin as AdminLoginType } from '../../types';
-import { adminAuthApi } from '../../services/api';
+import { Admin, AdminLogin as AdminLoginType } from '../../../types';
+import { adminAuthApi } from '../../../services/api';
 
 interface AdminLoginProps {
   onLoginSuccess: (admin: Admin) => void;

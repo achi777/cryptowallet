@@ -1,5 +1,5 @@
 import React from 'react';
-import { SystemStats } from '../../types';
+import { SystemStats } from '../../../types';
 
 interface AdminStatsProps {
   stats: SystemStats | null;
