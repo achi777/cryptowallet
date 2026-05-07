@@ -47,6 +47,15 @@ crypto:
     api-url: https://api.trongrid.io
     private-key: ${TRON_PRIVATE_KEY:}
 
+# First-boot administrator bootstrap (consumed once by AdminBootstrapRunner).
+# When the password is empty, the runner logs a warning and skips — production
+# deploys are expected to set ADMIN_BOOTSTRAP_PASSWORD explicitly.
+admin:
+  bootstrap:
+    username: ${ADMIN_BOOTSTRAP_USERNAME:admin}
+    email: ${ADMIN_BOOTSTRAP_EMAIL:admin@cryptowall.local}
+    password: ${ADMIN_BOOTSTRAP_PASSWORD:}
+
 # Master KEK — optional in staging (deterministic dev-fallback used with a loud WARN).
 app:
   security:
