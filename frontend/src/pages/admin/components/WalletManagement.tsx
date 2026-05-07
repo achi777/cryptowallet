@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Wallet, PageResponse, CryptoCurrency } from '../../../types';
-import { adminDashboardApi } from '../../../services/api';
+import {
+  useAdminAllWallets,
+  useAdminSearchWallets,
+  useToggleWalletStatus,
+  useAdminRefreshWalletBalance,
+} from '../../../hooks';
+
+const EMPTY_PAGE: PageResponse<Wallet> = {
+  content: [],
+  totalElements: 0,
+  totalPages: 0,
+  size: 10,
+  number: 0,
+  first: true,
+  last: true,
+};
 
 const WalletManagement: React.FC = () => {
-  const [wallets, setWallets] = useState<PageResponse<Wallet>>({
-    content: [],
-    totalElements: 0,
-    totalPages: 0,
-    size: 10,
-    number: 0,
-    first: true,
-    last: true
-  });
-  const [loading, setLoading] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [submittedQuery, setSubmittedQuery] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>('createdAt');
@@ -21,51 +27,40 @@ const WalletManagement: React.FC = () => {
   const [currencyFilter, setCurrencyFilter] = useState<CryptoCurrency | undefined>(undefined);
   const [activeFilter, setActiveFilter] = useState<boolean | undefined>(undefined);
 
-  useEffect(() => {
-    loadWallets();
-  }, [currentPage, pageSize, sortBy, sortDir, currencyFilter, activeFilter]);
+  const isSearching = submittedQuery.trim().length > 0;
+  const allQuery = useAdminAllWallets({
+    page: currentPage,
+    size: pageSize,
+    sortBy,
+    sortDir,
+    currency: currencyFilter,
+    active: activeFilter,
+  });
+  const searchQueryResult = useAdminSearchWallets(
+    { query: submittedQuery, page: currentPage, size: pageSize, sortBy, sortDir },
+    isSearching
+  );
+  const active = isSearching ? searchQueryResult : allQuery;
+  const wallets: PageResponse<Wallet> = active.data ?? EMPTY_PAGE;
+  const loading = active.isPending && active.fetchStatus !== 'idle';
 
-  const loadWallets = async () => {
-    try {
-      setLoading(true);
-      let walletResponse: PageResponse<Wallet>;
-      
-      if (searchQuery.trim()) {
-        walletResponse = await adminDashboardApi.searchWallets(searchQuery, currentPage, pageSize, sortBy, sortDir);
-      } else {
-        walletResponse = await adminDashboardApi.getAllWallets(
-          currentPage, 
-          pageSize, 
-          sortBy, 
-          sortDir, 
-          currencyFilter, 
-          activeFilter
-        );
-      }
-      
-      setWallets(walletResponse);
-    } catch (error) {
-      console.error('Failed to load wallets:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const toggleMutation = useToggleWalletStatus();
+  const refreshMutation = useAdminRefreshWalletBalance();
 
   const handleSearch = () => {
     setCurrentPage(0);
-    loadWallets();
+    setSubmittedQuery(searchQuery);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
+    setSubmittedQuery('');
     setCurrentPage(0);
-    loadWallets();
   };
 
   const handleToggleWalletStatus = async (walletId: number) => {
     try {
-      await adminDashboardApi.toggleWalletStatus(walletId);
-      loadWallets(); // Refresh the list
+      await toggleMutation.mutateAsync(walletId);
     } catch (error) {
       console.error('Failed to toggle wallet status:', error);
       alert('Failed to update wallet status');
@@ -74,8 +69,7 @@ const WalletManagement: React.FC = () => {
 
   const handleRefreshBalance = async (walletId: number) => {
     try {
-      await adminDashboardApi.refreshWalletBalance(walletId);
-      loadWallets(); // Refresh the list
+      await refreshMutation.mutateAsync(walletId);
       alert('Wallet balance refreshed successfully');
     } catch (error) {
       console.error('Failed to refresh wallet balance:', error);

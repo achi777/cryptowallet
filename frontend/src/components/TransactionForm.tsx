@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { transactionApi } from '../services/api';
+import { useSendTransaction } from '../hooks';
 import { Wallet, SendTransaction, CryptoCurrency } from '../types';
 
 interface TransactionFormProps {
@@ -13,9 +13,10 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ wallet, onTransaction
     amount: 0,
     memo: '',
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const sendMutation = useSendTransaction();
+  const loading = sendMutation.isPending;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -27,23 +28,20 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ wallet, onTransaction
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
     setSuccess(null);
 
     try {
-      const transaction = await transactionApi.send({
+      const transaction = await sendMutation.mutateAsync({
         ...formData,
-        walletId: wallet.id
+        walletId: wallet.id,
       });
-      
+
       setSuccess(`Transaction sent successfully! TX Hash: ${transaction.txHash}`);
       setFormData({ toAddress: '', amount: 0, memo: '' });
       onTransactionSent();
     } catch (err: any) {
       setError(err.response?.data?.message || 'Transaction failed');
-    } finally {
-      setLoading(false);
     }
   };
 

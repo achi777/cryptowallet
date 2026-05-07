@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { userApi } from '../services/api';
+import { useLoginUser } from '../hooks';
 import { LoginCredentials, User } from '../types';
 
 interface LoginProps {
@@ -13,8 +13,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister, onSwi
     username: '',
     password: '',
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const loginMutation = useLoginUser();
+  const loading = loginMutation.isPending;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,11 +27,10 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister, onSwi
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
 
     try {
-      const response = await userApi.login(formData);
+      const response = await loginMutation.mutateAsync(formData);
       if (response.success && response.user) {
         onLoginSuccess(response.user);
       } else {
@@ -38,8 +38,6 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onSwitchToRegister, onSwi
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { userApi } from '../services/api';
+import { useRegisterUser } from '../hooks';
 import { UserRegistration, User } from '../types';
 
 interface UserRegistrationProps {
@@ -15,8 +15,9 @@ const UserRegistrationForm: React.FC<UserRegistrationProps> = ({ onRegistrationS
     firstName: '',
     lastName: '',
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const registerMutation = useRegisterUser();
+  const loading = registerMutation.isPending;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,11 +29,10 @@ const UserRegistrationForm: React.FC<UserRegistrationProps> = ({ onRegistrationS
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
 
     try {
-      const response = await userApi.register(formData);
+      const response = await registerMutation.mutateAsync(formData);
       if (response.success && response.user) {
         onRegistrationSuccess(response.user);
       } else {
@@ -40,8 +40,6 @@ const UserRegistrationForm: React.FC<UserRegistrationProps> = ({ onRegistrationS
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 
