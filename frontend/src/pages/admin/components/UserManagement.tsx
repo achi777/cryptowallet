@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { User, PageResponse } from '../../types';
-import { adminDashboardApi } from '../../services/api';
+import { User, PageResponse } from '../../../types';
+import { adminDashboardApi } from '../../../services/api';
 
 const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<PageResponse<User>>({

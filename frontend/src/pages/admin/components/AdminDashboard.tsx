@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Admin, SystemStats } from '../../types';
-import { adminDashboardApi } from '../../services/api';
+import { Admin, SystemStats } from '../../../types';
+import { adminDashboardApi } from '../../../services/api';
 import AdminStats from './AdminStats';
 import UserManagement from './UserManagement';
 import WalletManagement from './WalletManagement';

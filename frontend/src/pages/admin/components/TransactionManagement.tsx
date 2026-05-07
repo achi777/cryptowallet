@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Transaction, PageResponse, TransactionStatus, TransactionType } from '../../types';
-import { adminDashboardApi } from '../../services/api';
+import { Transaction, PageResponse, TransactionStatus, TransactionType } from '../../../types';
+import { adminDashboardApi } from '../../../services/api';
 
 const TransactionManagement: React.FC = () => {
   const [transactions, setTransactions] = useState<PageResponse<Transaction>>({

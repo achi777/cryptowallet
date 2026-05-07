@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Admin, ChangePassword, AdminRegistration, AdminRole } from '../../types';
-import { adminAuthApi } from '../../services/api';
+import { Admin, ChangePassword, AdminRegistration, AdminRole } from '../../../types';
+import { adminAuthApi } from '../../../services/api';
 
 interface AdminSettingsProps {
   currentAdmin: Admin;
