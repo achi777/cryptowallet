@@ -1,3 +1,7 @@
+# Default compose flow — single-container, H2 in-memory.
+# Mirrors the portal-deploy staging container so `docker compose up` and the
+# deployed image behave identically. For a Postgres-backed run, layer
+# docker-compose.prod.yml on top: see DEPLOY.md.
 services:
   app:
     build:
@@ -9,29 +13,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: staging
     restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-  postgres:
-    image: postgres:15-alpine
-    container_name: cryptowallet-postgres
-    environment:
-      POSTGRES_DB: cryptowallet
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./database/init:/docker-entrypoint-initdb.d
-    restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d cryptowallet"]
-      interval: 10s
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
       timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
-    driver: local
+      retries: 3
+      start_period: 30s
