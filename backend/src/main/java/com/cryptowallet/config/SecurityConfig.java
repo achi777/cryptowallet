@@ -23,9 +23,12 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/", "/index.html", "/favicon.ico", "/manifest.json", "/robots.txt").permitAll()
+                .requestMatchers("/static/**", "/assets/**", "/css/**", "/js/**", "/img/**", "/fonts/**").permitAll()
+                .requestMatchers("/*.js", "/*.css", "/*.svg", "/*.png", "/*.ico", "/*.woff", "/*.woff2", "/*.map").permitAll()
                 .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
             .headers(headers -> headers.frameOptions().disable());
 
