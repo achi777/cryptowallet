@@ -8,6 +8,49 @@
 
 ---
 
+## 0. System context
+
+End-to-end view of how a browser request reaches a confirmed on-chain
+transaction in the post-refactor architecture. Two external networks
+(Bitcoin testnet/mainnet and the Tron HTTP node) sit on the right; the
+deployment boundary (Docker Compose stack) is the dashed group on the
+left.
+
+```mermaid
+graph LR
+    Browser["Browser<br/>(end user / admin)"]
+
+    subgraph Compose["Docker Compose stack"]
+        SPA["React SPA<br/>(single bundle, role-guarded routes)"]
+        API["Spring Boot API<br/>com.cryptowallet.wallet"]
+        DB[("PostgreSQL 15<br/>users, wallets,<br/>transactions, audit_log")]
+    end
+
+    BTCNet["Bitcoin network<br/>(testnet / mainnet,<br/>via BitcoinJ peers)"]
+    TronNet["Tron HTTP node<br/>(api.trongrid.io,<br/>via Web3j)"]
+
+    Browser -- "HTTPS, JWT bearer" --> SPA
+    SPA -- "/api/** (Axios)" --> API
+    API -- "JDBC, Flyway-managed schema" --> DB
+    API -- "BitcoinJ peer-group" --> BTCNet
+    API -- "Web3j JSON-RPC" --> TronNet
+```
+
+- The SPA is served by its own container (Nginx serving the CRA/Vite
+  build); the Spring Boot API does not serve static assets. The arrows
+  `Browser → SPA` and `SPA → API` are separate hops.
+- Auth is stateless JWT; the `Authorization: Bearer <token>` header is
+  attached by `lib/api.ts`'s Axios interceptor.
+- Outbound connections to BTC and Tron networks are the only reaches
+  outside the Compose stack.
+- The H2 in-memory database used in `dev` is intentionally not shown — it
+  is dev-only and lives inside the API process.
+
+> The standalone copy of this diagram (with extended notes) lives at
+> [`diagrams/system-context.md`](diagrams/system-context.md).
+
+---
+
 ## 1. Goals
 
 1. Refactor for **testability** (push business logic behind interfaces; cover
@@ -215,6 +258,102 @@ the returned `CryptoProvider`.
 A fake `InMemoryCryptoProvider` lives in test sources and is what
 `UNIT-TESTS-CRYPTO-LAYER` exercises against application services.
 
+**Class diagram.** Application services depend on the interface; the
+registry resolves the right implementation per `Chain`.
+
+```mermaid
+classDiagram
+    direction LR
+
+    class WalletService {
+        -CryptoProviderRegistry registry
+        -PrivateKeyStore keyStore
+        -WalletRepository wallets
+        +createWallet(userId, chain) Wallet
+        +listWallets(userId) List~Wallet~
+        +balanceOf(walletId) Money
+    }
+
+    class TransactionService {
+        -CryptoProviderRegistry registry
+        -TxStateMachineService stateMachine
+        -TransactionRepository transactions
+        +send(walletId, to, amount) Transaction
+        +history(walletId) List~Transaction~
+    }
+
+    class CryptoProviderRegistry {
+        -Map~Chain, CryptoProvider~ providers
+        +forChain(chain) CryptoProvider
+    }
+
+    class CryptoProvider {
+        <<interface>>
+        +chain() Chain
+        +generateKeyPair() GeneratedKeyPair
+        +addressOf(publicKey) String
+        +fetchBalance(address) Money
+        +broadcastTransfer(signedTransfer) String
+        +statusOf(txHash) OnChainStatus
+    }
+
+    class BitcoinCryptoProvider {
+        -BitcoinJClient client
+        +chain() Chain
+        +generateKeyPair() GeneratedKeyPair
+        +addressOf(publicKey) String
+        +fetchBalance(address) Money
+        +broadcastTransfer(signedTransfer) String
+        +statusOf(txHash) OnChainStatus
+    }
+
+    class TronCryptoProvider {
+        -Web3jTronClient client
+        +chain() Chain
+        +generateKeyPair() GeneratedKeyPair
+        +addressOf(publicKey) String
+        +fetchBalance(address) Money
+        +broadcastTransfer(signedTransfer) String
+        +statusOf(txHash) OnChainStatus
+    }
+
+    class PrivateKeyStore {
+        <<interface>>
+        +put(walletId, material) EncryptedKeyHandle
+        +get(handle) PrivateKeyMaterial
+        +rewrap(handle) EncryptedKeyHandle
+    }
+
+    class Aes256GcmKeyStore {
+        -SecretKey kek
+        +put(walletId, material) EncryptedKeyHandle
+        +get(handle) PrivateKeyMaterial
+        +rewrap(handle) EncryptedKeyHandle
+    }
+
+    WalletService --> CryptoProviderRegistry
+    WalletService --> PrivateKeyStore
+    TransactionService --> CryptoProviderRegistry
+
+    CryptoProviderRegistry o-- CryptoProvider : registers
+
+    CryptoProvider <|.. BitcoinCryptoProvider
+    CryptoProvider <|.. TronCryptoProvider
+
+    PrivateKeyStore <|.. Aes256GcmKeyStore
+```
+
+`WalletService` and `TransactionService` never reference
+`BitcoinCryptoProvider` or `TronCryptoProvider` by name. Tests substitute
+an `InMemoryCryptoProvider` via the registry. Every method on
+`CryptoProvider` operates on `domain.*` types — no BitcoinJ or Web3j
+types leak through the interface. A future `EthereumCryptoProvider` lands
+as a third implementation with no change to the interface or its callers
+(out of scope for this sprint — see §8).
+
+> The standalone copy of this diagram lives at
+> [`diagrams/crypto-provider.md`](diagrams/crypto-provider.md).
+
 ### 4.2 `class TxStateMachine`
 
 ```java
@@ -251,6 +390,44 @@ compile-time/throw-at-runtime concern, and gives the audit log a clean
 
 **What it replaces.** Ad-hoc setters on `Transaction` (`setStatus("sent")`,
 etc.) called from multiple services.
+
+**State diagram.** Every transition is driven by a named `TxEvent`; the
+wrapper service persists the new state and writes an `audit_log` row in
+the same database transaction.
+
+```mermaid
+stateDiagram-v2
+    [*] --> PENDING : send() request<br/>persisted, key signed
+
+    PENDING --> BROADCAST : BROADCAST_OK<br/>(TxBroadcastJob:<br/>provider.broadcastTransfer succeeded,<br/>tx_hash captured)
+    PENDING --> FAILED   : BROADCAST_FAIL<br/>(provider rejected:<br/>insufficient funds, RPC error,<br/>signing failure)
+
+    BROADCAST --> CONFIRMED : CONFIRM_RECEIVED<br/>(TxConfirmJob:<br/>provider.statusOf returns<br/>≥ N confirmations)
+    BROADCAST --> FAILED    : CONFIRM_TIMEOUT<br/>(no confirmation within<br/>chain-specific deadline,<br/>or provider reports drop)
+
+    CONFIRMED --> [*]
+    FAILED    --> [*]
+```
+
+**Transition table** (canonical — `TxStateMachine.next` is a `switch` over
+this exact set):
+
+| From | Event | To |
+| --- | --- | --- |
+| `PENDING` | `BROADCAST_OK` | `BROADCAST` |
+| `PENDING` | `BROADCAST_FAIL` | `FAILED` |
+| `BROADCAST` | `CONFIRM_RECEIVED` | `CONFIRMED` |
+| `BROADCAST` | `CONFIRM_TIMEOUT` | `FAILED` |
+
+Any `(state, event)` pair not listed throws `IllegalTransitionException`.
+`CONFIRMED` and `FAILED` are terminal — no further events are accepted.
+`TxBroadcastJob` (~5s) drives `PENDING → {BROADCAST, FAILED}`;
+`TxConfirmJob` (~30s) drives `BROADCAST → {CONFIRMED, FAILED}`. Every
+transition writes an `audit_log` row with `action = 'TX_<EVENT_NAME>'`.
+
+> The standalone copy of this diagram (with job ownership and audit-log
+> details) lives at
+> [`diagrams/tx-state-machine.md`](diagrams/tx-state-machine.md).
 
 ### 4.3 Role-based identity
 
