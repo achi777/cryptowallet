@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Admin, ChangePassword, AdminRegistration, AdminRole } from '../../types';
-import { adminAuthApi } from '../../services/adminApi';
+import { adminAuthApi } from '../../services/api';
 
 interface AdminSettingsProps {
   currentAdmin: Admin;
@@ -181,7 +181,7 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ currentAdmin }) => {
                   <label>Role</label>
                   <input
                     type="text"
-                    value={currentAdmin.role.replace('_', ' ')}
+                    value={(currentAdmin.role ?? 'ADMIN').replace('_', ' ')}
                     className="form-input"
                     disabled
                   />
@@ -329,7 +329,7 @@ const AdminSettings: React.FC<AdminSettingsProps> = ({ currentAdmin }) => {
           </div>
           <div>
             <div className="text-sm text-muted">Role</div>
-            <div className="font-medium">{currentAdmin.role.replace('_', ' ')}</div>
+            <div className="font-medium">{(currentAdmin.role ?? 'ADMIN').replace('_', ' ')}</div>
           </div>
           <div>
             <div className="text-sm text-muted">Status</div>

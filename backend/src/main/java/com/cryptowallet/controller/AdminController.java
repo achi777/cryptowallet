@@ -1,8 +1,8 @@
 package com.cryptowallet.controller;
 
 import com.cryptowallet.dto.*;
-import com.cryptowallet.entity.Admin;
-import com.cryptowallet.service.AdminService;
+import com.cryptowallet.entity.User;
+import com.cryptowallet.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,24 +17,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Admin-side endpoints. Backed by a single {@link User} entity with {@link User.Role#ADMIN}.
+ *
+ * <p>SecurityConfig is currently {@code permitAll()}; role enforcement is performed in this
+ * controller (login rejects non-admins; admin-creation paths force {@code role=ADMIN}). A
+ * follow-up ticket will move these checks to {@code @PreAuthorize} once real auth is wired.
+ */
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin(origins = "http://localhost:3000")
 public class AdminController {
-    
-    private final AdminService adminService;
-    
+
+    private final UserService userService;
+
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDto> registerAdmin(@Valid @RequestBody AdminRegistrationDto registrationDto) {
+    public ResponseEntity<AuthResponseDto> registerAdmin(@Valid @RequestBody UserRegistrationDto registrationDto) {
         try {
-            AdminDto admin = adminService.registerAdmin(registrationDto);
+            UserDto admin = userService.registerUserWithRole(registrationDto, User.Role.ADMIN);
             AuthResponseDto response = new AuthResponseDto();
             response.setMessage("Admin registered successfully");
             response.setSuccess(true);
-            response.setAdmin(admin);
-            response.setUser(null);
+            response.setUser(admin);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             log.error("Admin registration failed: {}", e.getMessage());
@@ -44,128 +50,133 @@ public class AdminController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-    
+
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> loginAdmin(@Valid @RequestBody AdminLoginDto loginDto) {
-        Optional<AdminDto> adminOpt = adminService.authenticateAdmin(loginDto.getUsername(), loginDto.getPassword());
-        
+    public ResponseEntity<AuthResponseDto> loginAdmin(@Valid @RequestBody LoginDto loginDto) {
+        Optional<UserDto> userOpt = userService.authenticateUser(loginDto.getUsername(), loginDto.getPassword());
+
         AuthResponseDto response = new AuthResponseDto();
-        if (adminOpt.isPresent()) {
+        if (userOpt.isPresent() && userOpt.get().getRole() == User.Role.ADMIN) {
             response.setMessage("Admin login successful");
             response.setSuccess(true);
-            response.setAdmin(adminOpt.get());
-            response.setUser(null);
+            response.setUser(userOpt.get());
             return ResponseEntity.ok(response);
+        } else if (userOpt.isPresent()) {
+            // Authenticated but not an admin — explicit forbid.
+            response.setMessage("Forbidden: admin role required");
+            response.setSuccess(false);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
         } else {
             response.setMessage("Invalid credentials or inactive account");
             response.setSuccess(false);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
-    
+
     @GetMapping("/{id}")
-    public ResponseEntity<AdminDto> getAdminById(@PathVariable Long id) {
-        Optional<AdminDto> admin = adminService.findById(id);
-        return admin.map(ResponseEntity::ok)
+    public ResponseEntity<UserDto> getAdminById(@PathVariable Long id) {
+        return userService.findById(id)
+                .filter(u -> u.getRole() == User.Role.ADMIN)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @GetMapping("/username/{username}")
-    public ResponseEntity<AdminDto> getAdminByUsername(@PathVariable String username) {
-        Optional<AdminDto> admin = adminService.findByUsername(username);
-        return admin.map(ResponseEntity::ok)
+    public ResponseEntity<UserDto> getAdminByUsername(@PathVariable String username) {
+        return userService.findByUsername(username)
+                .filter(u -> u.getRole() == User.Role.ADMIN)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @GetMapping
-    public ResponseEntity<Page<AdminDto>> getAllAdmins(
+    public ResponseEntity<Page<UserDto>> getAllAdmins(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir) {
-        
-        Sort sort = sortDir.equalsIgnoreCase("desc") ? 
+
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        
-        Page<AdminDto> admins = adminService.findAllAdmins(pageable);
+
+        Page<UserDto> admins = userService.findByRole(User.Role.ADMIN, pageable);
         return ResponseEntity.ok(admins);
     }
-    
+
     @GetMapping("/search")
-    public ResponseEntity<Page<AdminDto>> searchAdmins(
+    public ResponseEntity<Page<UserDto>> searchAdmins(
             @RequestParam String query,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String sortDir) {
-        
-        Sort sort = sortDir.equalsIgnoreCase("desc") ? 
+
+        Sort sort = sortDir.equalsIgnoreCase("desc") ?
                 Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
         Pageable pageable = PageRequest.of(page, size, sort);
-        
-        Page<AdminDto> admins = adminService.searchAdmins(query, pageable);
+
+        Page<UserDto> admins = userService.searchByRole(User.Role.ADMIN, query, pageable);
         return ResponseEntity.ok(admins);
     }
-    
+
     @GetMapping("/role/{role}")
-    public ResponseEntity<List<AdminDto>> getAdminsByRole(@PathVariable Admin.AdminRole role) {
-        List<AdminDto> admins = adminService.findByRole(role);
-        return ResponseEntity.ok(admins);
+    public ResponseEntity<List<UserDto>> getAdminsByRole(@PathVariable User.Role role) {
+        return ResponseEntity.ok(userService.findByRole(role));
     }
-    
+
     @PutMapping("/{id}")
-    public ResponseEntity<AdminDto> updateAdmin(@PathVariable Long id, @Valid @RequestBody AdminDto adminDto) {
+    public ResponseEntity<UserDto> updateAdmin(@PathVariable Long id, @Valid @RequestBody UserDto userDto) {
         try {
-            AdminDto updatedAdmin = adminService.updateAdmin(id, adminDto);
+            UserDto updatedAdmin = userService.updateUser(id, userDto);
             return ResponseEntity.ok(updatedAdmin);
         } catch (RuntimeException e) {
             log.error("Admin update failed: {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @PutMapping("/{id}/deactivate")
     public ResponseEntity<Void> deactivateAdmin(@PathVariable Long id) {
         try {
-            adminService.deactivateAdmin(id);
+            userService.deactivateUser(id);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             log.error("Admin deactivation failed: {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAdmin(@PathVariable Long id) {
         try {
-            adminService.deleteAdmin(id);
+            userService.deleteUser(id);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             log.error("Admin deletion failed: {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @PostMapping("/{id}/change-password")
     public ResponseEntity<String> changePassword(
             @PathVariable Long id,
             @RequestBody ChangePasswordDto changePasswordDto) {
-        
-        boolean success = adminService.changePassword(id, 
-                changePasswordDto.getCurrentPassword(), 
+
+        boolean success = userService.changePassword(id,
+                changePasswordDto.getCurrentPassword(),
                 changePasswordDto.getNewPassword());
-        
+
         if (success) {
             return ResponseEntity.ok("Password changed successfully");
         } else {
             return ResponseEntity.badRequest().body("Invalid current password");
         }
     }
-    
+
     @GetMapping("/stats/count")
     public ResponseEntity<Long> getActiveAdminCount() {
-        long count = adminService.getActiveAdminCount();
+        long count = userService.countActiveByRole(User.Role.ADMIN);
         return ResponseEntity.ok(count);
     }
 }

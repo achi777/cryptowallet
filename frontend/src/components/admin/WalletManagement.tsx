@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Wallet, PageResponse, CryptoCurrency } from '../../types';
-import { adminDashboardApi } from '../../services/adminApi';
+import { adminDashboardApi } from '../../services/api';
 
 const WalletManagement: React.FC = () => {
   const [wallets, setWallets] = useState<PageResponse<Wallet>>({
