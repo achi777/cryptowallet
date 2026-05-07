@@ -6,6 +6,8 @@ import com.cryptowallet.entity.Transaction;
 import com.cryptowallet.entity.Wallet;
 import com.cryptowallet.repository.TransactionRepository;
 import com.cryptowallet.repository.WalletRepository;
+import com.cryptowallet.service.crypto.CryptoProviderRegistry;
+import com.cryptowallet.service.crypto.TransactionResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,43 +28,25 @@ public class TransactionService {
     
     private final TransactionRepository transactionRepository;
     private final WalletRepository walletRepository;
-    private final BitcoinWalletService bitcoinWalletService;
-    private final TronWalletService tronWalletService;
-    
+    private final CryptoProviderRegistry providers;
+
     public TransactionDto sendTransaction(SendTransactionDto sendDto) {
         Wallet wallet = walletRepository.findById(sendDto.getWalletId())
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
-        
+
         if (wallet.getBalance().compareTo(sendDto.getAmount()) < 0) {
             throw new RuntimeException("Insufficient balance");
         }
-        
-        String txHash;
-        BigDecimal fee;
-        
+
         try {
-            switch (wallet.getCurrency()) {
-                case BITCOIN -> {
-                    var result = bitcoinWalletService.sendTransaction(
-                            wallet.getPrivateKey(),
-                            sendDto.getToAddress(),
-                            sendDto.getAmount()
-                    );
-                    txHash = result.getTxHash();
-                    fee = result.getFee();
-                }
-                case USDT_TRC20 -> {
-                    var result = tronWalletService.sendUsdtTransaction(
-                            wallet.getPrivateKey(),
-                            sendDto.getToAddress(),
-                            sendDto.getAmount()
-                    );
-                    txHash = result.getTxHash();
-                    fee = result.getFee();
-                }
-                default -> throw new RuntimeException("Unsupported currency: " + wallet.getCurrency());
-            }
-            
+            TransactionResult result = providers.get(wallet.getCurrency()).sendTransaction(
+                    wallet.getPrivateKey(),
+                    sendDto.getToAddress(),
+                    sendDto.getAmount()
+            );
+            String txHash = result.getTxHash();
+            BigDecimal fee = result.getFee();
+
             Transaction transaction = Transaction.builder()
                     .txHash(txHash)
                     .fromAddress(wallet.getAddress())
