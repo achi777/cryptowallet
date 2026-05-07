@@ -87,6 +87,7 @@ export enum TransactionType {
 
 export enum TransactionStatus {
   PENDING = 'PENDING',
+  BROADCAST = 'BROADCAST',
   CONFIRMED = 'CONFIRMED',
   FAILED = 'FAILED'
 }

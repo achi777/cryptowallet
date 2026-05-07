@@ -43,10 +43,27 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ walletId, userI
         return '#28a745';
       case TransactionStatus.PENDING:
         return '#ffc107';
+      case TransactionStatus.BROADCAST:
+        return '#fd7e14';
       case TransactionStatus.FAILED:
         return '#dc3545';
       default:
         return '#6c757d';
+    }
+  };
+
+  const getStatusClass = (status: TransactionStatus) => {
+    switch (status) {
+      case TransactionStatus.CONFIRMED:
+        return 'status-confirmed';
+      case TransactionStatus.PENDING:
+        return 'status-pending';
+      case TransactionStatus.BROADCAST:
+        return 'status-broadcast';
+      case TransactionStatus.FAILED:
+        return 'status-failed';
+      default:
+        return 'status-pending';
     }
   };
 
@@ -101,11 +118,8 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ walletId, userI
                   <span style={{ textTransform: 'capitalize', fontWeight: '600' }}>
                     {transaction.type.toLowerCase()}
                   </span>
-                  <span 
-                    className={`transaction-status ${
-                      transaction.status === TransactionStatus.CONFIRMED ? 'status-confirmed' :
-                      transaction.status === TransactionStatus.PENDING ? 'status-pending' : 'status-failed'
-                    }`}
+                  <span
+                    className={`transaction-status ${getStatusClass(transaction.status)}`}
                   >
                     {transaction.status}
                   </span>

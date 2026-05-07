@@ -29,6 +29,7 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final WalletRepository walletRepository;
     private final CryptoProviderRegistry providers;
+    private final TransactionStateMachine stateMachine;
 
     public TransactionDto sendTransaction(SendTransactionDto sendDto) {
         Wallet wallet = walletRepository.findById(sendDto.getWalletId())
@@ -37,6 +38,16 @@ public class TransactionService {
         if (wallet.getBalance().compareTo(sendDto.getAmount()) < 0) {
             throw new RuntimeException("Insufficient balance");
         }
+
+        Transaction transaction = Transaction.builder()
+                .fromAddress(wallet.getAddress())
+                .toAddress(sendDto.getToAddress())
+                .amount(sendDto.getAmount())
+                .type(Transaction.TransactionType.SEND)
+                .status(Transaction.TransactionStatus.PENDING)
+                .wallet(wallet)
+                .memo(sendDto.getMemo())
+                .build();
 
         try {
             TransactionResult result = providers.get(wallet.getCurrency()).sendTransaction(
@@ -47,34 +58,36 @@ public class TransactionService {
             String txHash = result.getTxHash();
             BigDecimal fee = result.getFee();
 
-            Transaction transaction = Transaction.builder()
-                    .txHash(txHash)
-                    .fromAddress(wallet.getAddress())
-                    .toAddress(sendDto.getToAddress())
-                    .amount(sendDto.getAmount())
-                    .fee(fee)
-                    .type(Transaction.TransactionType.SEND)
-                    .status(Transaction.TransactionStatus.PENDING)
-                    .wallet(wallet)
-                    .memo(sendDto.getMemo())
-                    .build();
-            
+            transaction.setTxHash(txHash);
+            transaction.setFee(fee);
+
             Transaction savedTransaction = transactionRepository.save(transaction);
-            
+
+            stateMachine.transition(savedTransaction, Transaction.TransactionStatus.BROADCAST);
+            savedTransaction = transactionRepository.save(savedTransaction);
+
             // Update wallet balance
             BigDecimal newBalance = wallet.getBalance()
                     .subtract(sendDto.getAmount())
                     .subtract(fee);
             wallet.setBalance(newBalance);
             walletRepository.save(wallet);
-            
-            log.info("Transaction sent successfully: {} from {} to {}", 
+
+            log.info("Transaction sent successfully: {} from {} to {}",
                     txHash, wallet.getAddress(), sendDto.getToAddress());
-            
+
             return convertToDto(savedTransaction);
-            
+
         } catch (Exception e) {
             log.error("Failed to send transaction: {}", e.getMessage());
+            if (transaction.getTxHash() == null) {
+                transaction.setTxHash("failed-" + System.nanoTime() + "-" + wallet.getId());
+            }
+            if (transaction.getId() == null) {
+                transaction = transactionRepository.save(transaction);
+            }
+            stateMachine.transition(transaction, Transaction.TransactionStatus.FAILED);
+            transactionRepository.save(transaction);
             throw new RuntimeException("Failed to send transaction: " + e.getMessage());
         }
     }
@@ -103,13 +116,13 @@ public class TransactionService {
                                        Long blockNumber, Integer confirmations) {
         Transaction transaction = transactionRepository.findByTxHash(txHash)
                 .orElseThrow(() -> new RuntimeException("Transaction not found"));
-        
-        transaction.setStatus(status);
+
+        stateMachine.transition(transaction, status);
         transaction.setBlockNumber(blockNumber);
         transaction.setConfirmations(confirmations);
-        
+
         transactionRepository.save(transaction);
-        
+
         log.info("Transaction status updated: {} - Status: {}", txHash, status);
     }
     

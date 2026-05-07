@@ -17,6 +17,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
+
+    @PrePersist
+    @PreUpdate
+    private void validateStatus() {
+        com.cryptowallet.service.TransactionStateMachine.assertValidPersist(this);
+    }
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +72,6 @@ public class Transaction {
     }
     
     public enum TransactionStatus {
-        PENDING, CONFIRMED, FAILED
+        PENDING, BROADCAST, CONFIRMED, FAILED
     }
 }
