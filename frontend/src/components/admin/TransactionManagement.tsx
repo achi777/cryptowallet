@@ -97,6 +97,8 @@ const TransactionManagement: React.FC = () => {
     switch (status) {
       case TransactionStatus.PENDING:
         return 'bg-yellow-100 text-yellow-800';
+      case TransactionStatus.BROADCAST:
+        return 'bg-orange-100 text-orange-800';
       case TransactionStatus.CONFIRMED:
         return 'bg-green-100 text-green-800';
       case TransactionStatus.FAILED:
@@ -110,6 +112,8 @@ const TransactionManagement: React.FC = () => {
     switch (status) {
       case TransactionStatus.PENDING:
         return '⏳';
+      case TransactionStatus.BROADCAST:
+        return '📡';
       case TransactionStatus.CONFIRMED:
         return '✅';
       case TransactionStatus.FAILED:
@@ -170,6 +174,7 @@ const TransactionManagement: React.FC = () => {
             >
               <option value="all">All Status</option>
               <option value={TransactionStatus.PENDING}>Pending</option>
+              <option value={TransactionStatus.BROADCAST}>Broadcast</option>
               <option value={TransactionStatus.CONFIRMED}>Confirmed</option>
               <option value={TransactionStatus.FAILED}>Failed</option>
             </select>
