@@ -124,7 +124,35 @@ backup encryption key: keep both versions for a defined retention window.
 
 Source of truth: `backend/src/main/java/com/cryptowallet/security/CryptoService.java`.
 
-## 6. Future work (NOT in this PR)
+## 6. H2 console exposure
+
+Ticket: CRYPTOWALL-7 (HARDEN).
+
+The H2 web console (`/h2-console`) is disabled in all non-development profiles via
+two independent layers — both must remain in place:
+
+- **Spring Security layer**: `/h2-console/**` is matched by a dedicated
+  `SecurityFilterChain` bean (`h2ConsoleFilterChain` in `SecurityConfig`) annotated
+  `@Profile({"dev", "h2"})` and `@Order(1)`. In `prod` and `staging` this bean is
+  not instantiated, so no chain matches the path; the default chain has no
+  `/h2-console/**` matcher either, and the request falls through to the servlet
+  layer (no security `permitAll` short-circuit).
+
+- **Servlet layer**: `spring.h2.console.enabled=false` is set in
+  `application-prod.yml` and `application-staging.yml`. The embedded H2 console
+  servlet is not registered, so the request returns 404 from the servlet
+  container even before any security filter would have run.
+
+- **Defense in depth**: removing either layer is a regression. `application-prod.yml`
+  contains no direct H2 driver/JDBC-URL/dialect references — prod is Postgres only.
+
+To use the console in local development, set `SPRING_PROFILES_ACTIVE=h2` (the
+project's dev-equivalent profile) and visit `http://localhost:8080/h2-console`.
+
+Tests: `H2ConsoleProdProfileTest` asserts non-200 under `prod`;
+`H2ConsoleDevProfileTest` asserts 200/302 under `h2`.
+
+## 7. Future work (NOT in this PR)
 
 - History scrub (`git filter-repo`) for the leaked DB passwords.
 - Wire `mnemonic` / API-secret columns through `EncryptedStringConverter` as they land.
