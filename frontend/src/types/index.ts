@@ -33,6 +33,11 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface UnifiedLoginCredentials {
+  email: string;
+  password: string;
+}
+
 export interface AuthResponse {
   message: string;
   user: User | null;
