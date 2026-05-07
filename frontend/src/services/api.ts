@@ -3,6 +3,7 @@ import {
   User,
   UserRegistration,
   LoginCredentials,
+  UnifiedLoginCredentials,
   AuthResponse,
   Wallet,
   WalletCreation,
@@ -33,6 +34,16 @@ const adminAxios = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Unified, role-aware sign-in. Powers the canonical /signin page.
+// Backed server-side by AuthController#signIn — accepts email + password and returns
+// an AuthResponse whose user payload carries the role for downstream routing.
+export const authApi = {
+  signIn: async (credentials: UnifiedLoginCredentials): Promise<AuthResponse> => {
+    const response = await api.post<AuthResponse>('/auth/signin', credentials);
+    return response.data;
+  },
+};
 
 // User API
 export const userApi = {

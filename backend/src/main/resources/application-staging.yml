@@ -56,6 +56,14 @@ admin:
     email: ${ADMIN_BOOTSTRAP_EMAIL:admin@cryptowall.local}
     password: ${ADMIN_BOOTSTRAP_PASSWORD:}
 
+# First-boot seeded customer bootstrap (consumed once by CustomerBootstrapRunner).
+# Same opt-in semantics as the admin bootstrap: empty password → no-op + WARN.
+customer:
+  bootstrap:
+    username: ${CUSTOMER_BOOTSTRAP_USERNAME:customer}
+    email: ${CUSTOMER_BOOTSTRAP_EMAIL:customer@cryptowall.local}
+    password: ${CUSTOMER_BOOTSTRAP_PASSWORD:}
+
 # Master KEK — optional in staging (deterministic dev-fallback used with a loud WARN).
 app:
   security:

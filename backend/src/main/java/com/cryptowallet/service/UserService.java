@@ -156,6 +156,23 @@ public class UserService {
         return Optional.empty();
     }
 
+    public Optional<UserDto> authenticateByEmail(String email, String password) {
+        Optional<User> userOpt = userRepository.findByEmailIgnoreCase(email);
+
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            if (Boolean.TRUE.equals(user.getActive()) && passwordEncoder.matches(password, user.getPassword())) {
+                user.setLastLogin(LocalDateTime.now());
+                userRepository.save(user);
+                log.info("User authenticated by email successfully: {} (role={})", email, user.getRole());
+                return Optional.of(convertToDto(user));
+            }
+        }
+
+        log.warn("Authentication by email failed for: {}", email);
+        return Optional.empty();
+    }
+
     public boolean changePassword(Long userId, String currentPassword, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
