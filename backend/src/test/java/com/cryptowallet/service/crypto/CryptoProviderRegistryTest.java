@@ -1,8 +1,6 @@
 package com.cryptowallet.service.crypto;
 
 import com.cryptowallet.entity.Wallet;
-import com.cryptowallet.service.BitcoinWalletService;
-import com.cryptowallet.service.TronWalletService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,9 +14,9 @@ class CryptoProviderRegistryTest {
 
     @Test
     void resolvesProviderForEachSupportedCurrency() {
-        BitcoinWalletService bitcoin = mock(BitcoinWalletService.class);
+        CryptoProvider bitcoin = mock(CryptoProvider.class);
         when(bitcoin.supportedCurrency()).thenReturn(Wallet.CryptoCurrency.BITCOIN);
-        TronWalletService tron = mock(TronWalletService.class);
+        CryptoProvider tron = mock(CryptoProvider.class);
         when(tron.supportedCurrency()).thenReturn(Wallet.CryptoCurrency.USDT_TRC20);
 
         CryptoProviderRegistry registry = new CryptoProviderRegistry(List.of(bitcoin, tron));
