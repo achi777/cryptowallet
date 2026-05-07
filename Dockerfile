@@ -3,8 +3,8 @@
 # ------- Stage 1: build frontend -------
 FROM node:20-alpine AS frontend-build
 WORKDIR /app/frontend
-COPY frontend/package*.json ./
-RUN npm ci --no-audit --no-fund
+COPY frontend/package*.json frontend/.npmrc* ./
+RUN npm ci --no-audit --no-fund --legacy-peer-deps
 COPY frontend/ ./
 RUN npm run build
 # CRA output: /app/frontend/build/
