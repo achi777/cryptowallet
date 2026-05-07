@@ -1,0 +1,50 @@
+# Prod profile — local production-like runs against a real Postgres
+# (brought up by docker-compose.prod.yml). Not used by the portal-deploy
+# staging container; that path uses application-staging.yml + H2 in-mem.
+spring:
+  application:
+    name: crypto-wallet-backend
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/cryptowallet}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:cryptouser}
+    password: ${SPRING_DATASOURCE_PASSWORD:crypto123}
+
+  # H2 console must NEVER be reachable in prod.
+  h2:
+    console:
+      enabled: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+crypto:
+  bitcoin:
+    network: test
+  tron:
+    api-url: https://api.trongrid.io
+    private-key: ${TRON_PRIVATE_KEY:}
+
+logging:
+  level:
+    com.cryptowallet: INFO
