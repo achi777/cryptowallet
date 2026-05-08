@@ -22,9 +22,10 @@ import java.util.Optional;
  *
  * <p>Accepts {@code email + password}, returns the authenticated {@link UserDto} (which
  * carries the role) on success. Frontend reads {@code user.role} to decide where to
- * redirect — no separate admin endpoint required for this entry point. Existing
- * {@code /api/users/login} (username) and {@code /api/admin/login} (admin-only) endpoints
- * are left intact for backward compatibility.
+ * redirect — no separate admin endpoint required for this entry point. The legacy
+ * username-based {@code /api/admin/login} endpoint was retired in CRYPTOWALL-18; it now
+ * returns {@code 410 Gone}. The legacy {@code /api/users/login} endpoint is kept for
+ * backward compatibility with non-browser API clients.
  */
 @RestController
 @RequestMapping("/api/auth")

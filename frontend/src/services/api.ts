@@ -11,7 +11,6 @@ import {
   SendTransaction,
   Admin,
   AdminRegistration,
-  AdminLogin,
   AdminRole,
   ChangePassword,
   PageResponse,
@@ -138,12 +137,9 @@ export const transactionApi = {
 
 // Admin API — folded in from the deleted adminApi.ts (CRYPTOWALL-5).
 // Backed server-side by a single User entity with role=ADMIN.
+// The legacy `login` (POST /api/admin/login, username-based) was removed in
+// CRYPTOWALL-18; the unified `authApi.signIn` is the only sign-in path.
 export const adminAuthApi = {
-  login: async (credentials: AdminLogin): Promise<AuthResponse> => {
-    const response = await adminAxios.post<AuthResponse>('/login', credentials);
-    return response.data;
-  },
-
   register: async (adminData: AdminRegistration): Promise<AuthResponse> => {
     const response = await adminAxios.post<AuthResponse>('/register', adminData);
     return response.data;

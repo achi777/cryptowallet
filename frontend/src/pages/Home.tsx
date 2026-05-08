@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Login from '../components/Login';
-import UserRegistrationForm from '../components/UserRegistration';
+import { Navigate } from 'react-router-dom';
 import WalletList from '../components/WalletList';
 import TransactionForm from '../components/TransactionForm';
 import TransactionHistory from '../components/TransactionHistory';
 import { Wallet, User } from '../types';
 
 function Home() {
-  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null);
   const [activeTab, setActiveTab] = useState<'wallets' | 'send' | 'history'>('wallets');
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('cryptoWalletUser');
@@ -23,24 +20,14 @@ function Home() {
         localStorage.removeItem('cryptoWalletUser');
       }
     }
+    setAuthChecked(true);
   }, []);
-
-  const handleLoginSuccess = (user: User) => {
-    setCurrentUser(user);
-    localStorage.setItem('cryptoWalletUser', JSON.stringify(user));
-  };
-
-  const handleRegistrationSuccess = (user: User) => {
-    setCurrentUser(user);
-    localStorage.setItem('cryptoWalletUser', JSON.stringify(user));
-  };
 
   const handleLogout = () => {
     setCurrentUser(null);
     setSelectedWallet(null);
     setActiveTab('wallets');
     localStorage.removeItem('cryptoWalletUser');
-    setAuthMode('login');
   };
 
   const handleWalletSelect = (wallet: Wallet) => {
@@ -53,22 +40,13 @@ function Home() {
     setSelectedWallet(null);
   };
 
+  if (!authChecked) {
+    return null;
+  }
+
   if (!currentUser) {
-    if (authMode === 'login') {
-      return (
-        <Login
-          onLoginSuccess={handleLoginSuccess}
-          onSwitchToRegister={() => setAuthMode('register')}
-          onSwitchToAdmin={() => navigate('/admin/login')}
-        />
-      );
-    }
-    return (
-      <UserRegistrationForm
-        onRegistrationSuccess={handleRegistrationSuccess}
-        onSwitchToLogin={() => setAuthMode('login')}
-      />
-    );
+    // Unauthenticated visitors land on the canonical, unified sign-in form.
+    return <Navigate to="/signin" replace />;
   }
 
   return (

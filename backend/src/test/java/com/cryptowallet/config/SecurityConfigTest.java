@@ -44,4 +44,20 @@ class SecurityConfigTest {
         mockMvc.perform(get("/assets/index-deadbeef.js"))
             .andExpect(status().isNotFound());
     }
+
+    @Test
+    void multiSegmentClientSideRouteForwardsToIndexHtml() throws Exception {
+        // Two-segment SPA paths like /admin/login (legacy bookmark, now a React-Router redirect
+        // to /signin) and /admin/users must also be served by the SPA shell. Without the
+        // multi-segment view-controller mapping in WebConfig, Spring returns its JSON 404
+        // page and React Router never gets a chance to redirect — the user-visible bug
+        // behind CRYPTOWALL-18.
+        mockMvc.perform(get("/admin/login"))
+            .andExpect(status().isOk())
+            .andExpect(forwardedUrl("/index.html"));
+
+        mockMvc.perform(get("/admin/users"))
+            .andExpect(status().isOk())
+            .andExpect(forwardedUrl("/index.html"));
+    }
 }

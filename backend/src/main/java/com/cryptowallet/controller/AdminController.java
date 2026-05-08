@@ -51,26 +51,18 @@ public class AdminController {
         }
     }
 
+    /**
+     * Legacy admin sign-in endpoint. Removed in CRYPTOWALL-18 in favour of the
+     * unified {@code POST /api/auth/signin} which accepts an email and dispatches
+     * by {@code role}. We return {@code 410 Gone} so any stale clients still
+     * pointed here surface a clear error rather than silently 404-ing.
+     */
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> loginAdmin(@Valid @RequestBody LoginDto loginDto) {
-        Optional<UserDto> userOpt = userService.authenticateUser(loginDto.getUsername(), loginDto.getPassword());
-
+    public ResponseEntity<AuthResponseDto> loginAdmin() {
         AuthResponseDto response = new AuthResponseDto();
-        if (userOpt.isPresent() && userOpt.get().getRole() == User.Role.ADMIN) {
-            response.setMessage("Admin login successful");
-            response.setSuccess(true);
-            response.setUser(userOpt.get());
-            return ResponseEntity.ok(response);
-        } else if (userOpt.isPresent()) {
-            // Authenticated but not an admin — explicit forbid.
-            response.setMessage("Forbidden: admin role required");
-            response.setSuccess(false);
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
-        } else {
-            response.setMessage("Invalid credentials or inactive account");
-            response.setSuccess(false);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+        response.setMessage("Endpoint removed. Use POST /api/auth/signin with email + password.");
+        response.setSuccess(false);
+        return ResponseEntity.status(HttpStatus.GONE).body(response);
     }
 
     @GetMapping("/{id}")
