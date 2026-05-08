@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../services/api';
 import { UnifiedLoginCredentials } from '../types';
 
@@ -142,6 +142,13 @@ const SignIn: React.FC = () => {
               )}
             </button>
           </form>
+
+          <div className="text-center text-muted mb-3" style={{ fontSize: '0.875rem' }}>
+            Don't have an account?{' '}
+            <Link to="/signup" style={{ color: '#667eea', fontWeight: 600 }}>
+              Sign up
+            </Link>
+          </div>
 
           <div className="text-center">
             <button

@@ -3,6 +3,7 @@ package com.cryptowallet.controller;
 import com.cryptowallet.dto.AuthResponseDto;
 import com.cryptowallet.dto.UnifiedLoginDto;
 import com.cryptowallet.dto.UserDto;
+import com.cryptowallet.dto.UserRegistrationDto;
 import com.cryptowallet.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +52,30 @@ public class AuthController {
         response.setMessage("Invalid email or password");
         response.setSuccess(false);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
+
+    /**
+     * Self-serve user registration (CRYPTOWALL-20). Delegates to the same
+     * {@link UserService#registerUser} path used by the legacy
+     * {@code /api/users/register} endpoint, which is retained for back-compat.
+     * Always provisions a {@code USER}-role account; the optional {@code role}
+     * field on {@link UserRegistrationDto} is ignored here so this endpoint
+     * cannot be used to escalate to ADMIN.
+     */
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponseDto> register(@Valid @RequestBody UserRegistrationDto registrationDto) {
+        AuthResponseDto response = new AuthResponseDto();
+        try {
+            UserDto user = userService.registerUser(registrationDto);
+            response.setMessage("User registered successfully");
+            response.setUser(user);
+            response.setSuccess(true);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (RuntimeException e) {
+            response.setMessage(e.getMessage());
+            response.setUser(null);
+            response.setSuccess(false);
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 }
