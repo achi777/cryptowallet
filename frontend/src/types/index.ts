@@ -1,10 +1,19 @@
+/**
+ * Backend roles are USER and ADMIN after CRYPTOWALL-5. Legacy admin sub-role
+ * strings (SUPER_ADMIN, MODERATOR, SUPPORT) may still appear in older UI
+ * branches, so the type stays widened to `string` for that surface.
+ */
+export type Role = 'USER' | 'ADMIN' | string;
+
 export interface User {
   id: number;
   username: string;
   email: string;
   firstName: string;
   lastName: string;
+  role?: Role;
   active: boolean;
+  lastLogin?: string;
   wallets: Wallet[];
   createdAt: string;
   updatedAt: string;
@@ -16,6 +25,7 @@ export interface UserRegistration {
   password: string;
   firstName: string;
   lastName: string;
+  role?: Role;
 }
 
 export interface LoginCredentials {
@@ -23,10 +33,14 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface UnifiedLoginCredentials {
+  email: string;
+  password: string;
+}
+
 export interface AuthResponse {
   message: string;
   user: User | null;
-  admin: Admin | null;
   success: boolean;
 }
 
@@ -78,37 +92,19 @@ export enum TransactionType {
 
 export enum TransactionStatus {
   PENDING = 'PENDING',
+  BROADCAST = 'BROADCAST',
   CONFIRMED = 'CONFIRMED',
   FAILED = 'FAILED'
 }
 
-// Admin types
-export interface Admin {
-  id: number;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: AdminRole;
-  active: boolean;
-  lastLogin?: string;
-  createdAt: string;
-  updatedAt: string;
-}
+/**
+ * Admin is a {@link User} with {@code role === 'ADMIN'} after CRYPTOWALL-5.
+ * The alias is kept so existing admin UI components don't churn while the
+ * type system still expresses "this surface only deals with admins".
+ */
+export type Admin = User;
 
-export interface AdminRegistration {
-  username: string;
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  role: AdminRole;
-}
-
-export interface AdminLogin {
-  username: string;
-  password: string;
-}
+export type AdminRegistration = UserRegistration;
 
 export interface SystemStats {
   totalUsers: number;
@@ -142,9 +138,17 @@ export interface ChangePassword {
   newPassword: string;
 }
 
-export enum AdminRole {
-  SUPER_ADMIN = 'SUPER_ADMIN',
-  ADMIN = 'ADMIN',
-  MODERATOR = 'MODERATOR',
-  SUPPORT = 'SUPPORT'
-}
+/**
+ * Server-side roles after CRYPTOWALL-5 collapsed to {USER, ADMIN}. Legacy
+ * sub-role string values (SUPER_ADMIN, MODERATOR, SUPPORT) are kept here so
+ * existing UI surfaces compile, but the backend will only persist USER/ADMIN.
+ */
+export const AdminRole = {
+  ADMIN: 'ADMIN',
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  MODERATOR: 'MODERATOR',
+  SUPPORT: 'SUPPORT',
+} as const;
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export type AdminRole = typeof AdminRole[keyof typeof AdminRole];

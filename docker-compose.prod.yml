@@ -1,0 +1,41 @@
+# Prod overlay — brings up Postgres alongside the app for production-like local runs.
+# Apply on top of docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up
+# This is NOT what portal-deploy uses; portal-deploy still single-runs the image
+# with the staging profile (H2 in-mem). See DEPLOY.md.
+services:
+  app:
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/cryptowallet
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-cryptouser}
+      # Required — must come from host env / secret manager (see .env.example).
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:?set SPRING_DATASOURCE_PASSWORD in env}
+      # Required — base64 of 32 raw bytes: `openssl rand -base64 32`. See architecture/SECURITY.md.
+      CRYPTOWALL_KEK_BASE64: ${CRYPTOWALL_KEK_BASE64:?set CRYPTOWALL_KEK_BASE64 in env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: cryptowallet-postgres
+    environment:
+      POSTGRES_DB: cryptowallet
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in env}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cryptowallet"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local

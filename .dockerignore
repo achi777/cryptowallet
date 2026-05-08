@@ -1,0 +1,23 @@
+# Build artifacts (rebuilt inside the image)
+backend/target/
+frontend/node_modules/
+frontend/build/
+
+# Logs
+*.log
+logs/
+
+# VCS / IDE / OS
+.git/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+__MACOSX/
+
+# Local-dev scripts and docs (not needed for the runtime image)
+*.md
+install.sh
+startwallet.sh
+startwallet-admin.sh
+stopwallet.sh

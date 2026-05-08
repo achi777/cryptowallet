@@ -1,23 +1,34 @@
+# Default compose flow — single-container, H2 in-memory.
+# Mirrors the portal-deploy staging container so `docker compose up` and the
+# deployed image behave identically. For a Postgres-backed run, layer
+# docker-compose.prod.yml on top: see DEPLOY.md.
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: cryptowallet-postgres
-    environment:
-      POSTGRES_DB: cryptowallet
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cryptowallet-app
     ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./database/init:/docker-entrypoint-initdb.d
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+      # First-boot admin bootstrap (AdminBootstrapRunner reads these once on a
+      # fresh H2 DB; subsequent restarts are a no-op). Mirrored in
+      # ~/.openclaw/workspace/projects/CRYPTOWALL/ADMIN_CREDENTIALS.md so the
+      # portal dashboard surfaces the same values to the project owner.
+      ADMIN_BOOTSTRAP_USERNAME: admin
+      ADMIN_BOOTSTRAP_EMAIL: admin@cryptowall.local
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-XPaevIbyZ6klD5ZeZFeGIQ8h}
+      # First-boot customer bootstrap (CustomerBootstrapRunner). Mirrors the admin block
+      # so the portal validator's `auth-walk-as-customer` scenario has a real USER to
+      # sign in as. Surfaces in ~/.openclaw/workspace/projects/CRYPTOWALL/USER_CREDENTIALS.md.
+      CUSTOMER_BOOTSTRAP_USERNAME: customer
+      CUSTOMER_BOOTSTRAP_EMAIL: customer@cryptowall.local
+      CUSTOMER_BOOTSTRAP_PASSWORD: ${CUSTOMER_BOOTSTRAP_PASSWORD:-V7vrlUZDh3MK2u99nGaC5Eyk}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U cryptouser -d cryptowallet"]
-      interval: 10s
+      test: ["CMD-SHELL", "wget --quiet --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 15s
       timeout: 5s
-      retries: 5
-
-volumes:
-  postgres_data:
-    driver: local
+      retries: 3
+      start_period: 30s

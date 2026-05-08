@@ -6,6 +6,8 @@ import com.cryptowallet.entity.User;
 import com.cryptowallet.entity.Wallet;
 import com.cryptowallet.repository.UserRepository;
 import com.cryptowallet.repository.WalletRepository;
+import com.cryptowallet.service.crypto.CryptoProviderRegistry;
+import com.cryptowallet.service.crypto.KeyPair;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,33 +28,17 @@ public class WalletService {
     
     private final WalletRepository walletRepository;
     private final UserRepository userRepository;
-    private final BitcoinWalletService bitcoinWalletService;
-    private final TronWalletService tronWalletService;
-    
+    private final CryptoProviderRegistry providers;
+
     public WalletDto createWallet(Long userId, WalletCreationDto creationDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        
-        String address;
-        String privateKey;
-        
-        switch (creationDto.getCurrency()) {
-            case BITCOIN -> {
-                var keyPair = bitcoinWalletService.generateKeyPair();
-                address = keyPair.getAddress();
-                privateKey = keyPair.getPrivateKey();
-            }
-            case USDT_TRC20 -> {
-                var keyPair = tronWalletService.generateKeyPair();
-                address = keyPair.getAddress();
-                privateKey = keyPair.getPrivateKey();
-            }
-            default -> throw new RuntimeException("Unsupported currency: " + creationDto.getCurrency());
-        }
-        
+
+        KeyPair keyPair = providers.get(creationDto.getCurrency()).generateAddress();
+
         Wallet wallet = Wallet.builder()
-                .address(address)
-                .privateKey(privateKey)
+                .address(keyPair.getAddress())
+                .privateKey(keyPair.getPrivateKey())
                 .currency(creationDto.getCurrency())
                 .balance(BigDecimal.ZERO)
                 .user(user)
@@ -102,10 +87,7 @@ public class WalletService {
         Wallet wallet = walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
         
-        BigDecimal balance = switch (wallet.getCurrency()) {
-            case BITCOIN -> bitcoinWalletService.getBalance(wallet.getAddress());
-            case USDT_TRC20 -> tronWalletService.getUsdtBalance(wallet.getAddress());
-        };
+        BigDecimal balance = providers.get(wallet.getCurrency()).getBalance(wallet.getAddress());
         
         wallet.setBalance(balance);
         walletRepository.save(wallet);

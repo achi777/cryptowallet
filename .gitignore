@@ -1,0 +1,28 @@
+# Build artifacts
+backend/target/
+frontend/node_modules/
+frontend/build/
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS junk
+.DS_Store
+__MACOSX/
+Thumbs.db
+
+# Env
+.env
+.env.local
+.env.*.local

@@ -32,6 +32,11 @@ crypto:
   tron:
     api-url: https://api.trongrid.io
     private-key: ${TRON_PRIVATE_KEY:}
+
+# Master KEK — optional in h2 dev profile (deterministic dev-fallback used with a loud WARN).
+app:
+  security:
+    kek: ${CRYPTOWALL_KEK_BASE64:}
   
 logging:
   level:

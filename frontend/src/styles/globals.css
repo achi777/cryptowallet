@@ -413,6 +413,11 @@ body {
   color: #856404;
 }
 
+.status-broadcast {
+  background: #ffe5b4;
+  color: #8a4b08;
+}
+
 .status-failed {
   background: #f8d7da;
   color: #721c24;
