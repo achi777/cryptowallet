@@ -2,7 +2,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { adminAuthApi } from '../services/api';
 import type {
   Admin,
-  AdminLogin,
   AdminRegistration,
   AdminRole,
   AuthResponse,
@@ -67,12 +66,6 @@ export function useActiveAdminCount() {
   return useQuery<number>({
     queryKey: qk.adminsActiveCount,
     queryFn: () => adminAuthApi.getActiveCount(),
-  });
-}
-
-export function useAdminLogin() {
-  return useMutation<AuthResponse, Error, AdminLogin>({
-    mutationFn: (creds) => adminAuthApi.login(creds),
   });
 }
 

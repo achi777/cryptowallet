@@ -106,8 +106,6 @@ export type Admin = User;
 
 export type AdminRegistration = UserRegistration;
 
-export type AdminLogin = LoginCredentials;
-
 export interface SystemStats {
   totalUsers: number;
   activeUsers: number;

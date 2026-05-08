@@ -3,6 +3,30 @@ import { useNavigate } from 'react-router-dom';
 import { authApi } from '../services/api';
 import { UnifiedLoginCredentials } from '../types';
 
+// Map an axios-style error onto a user-readable string. The previous catch
+// collapsed everything (network down, 5xx, 4xx-with-no-body) onto "Invalid
+// email or password", which misled users with valid credentials when the
+// backend was simply unreachable.
+function formatSignInError(err: any): string {
+  if (!err || typeof err !== 'object') {
+    return 'Sign-in failed. Please try again.';
+  }
+  if (!err.response) {
+    return 'Cannot reach the server. Check your connection and try again.';
+  }
+  const { status, data } = err.response;
+  if (data?.message && typeof data.message === 'string') {
+    return data.message;
+  }
+  if (status === 401 || status === 403) {
+    return 'Invalid email or password.';
+  }
+  if (status >= 500) {
+    return `Server error (${status}) — please try again or contact support.`;
+  }
+  return `Sign-in failed (${status}).`;
+}
+
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<UnifiedLoginCredentials>({
@@ -11,6 +35,7 @@ const SignIn: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,8 +47,16 @@ const SignIn: React.FC = () => {
     setError(null);
     setLoading(true);
 
+    // Trim whitespace from email — backend already lowercases for comparison,
+    // but a stray leading/trailing space would cause an unnecessary 401 because
+    // the trimmed bootstrap-seeded email never has spaces.
+    const payload: UnifiedLoginCredentials = {
+      email: formData.email.trim(),
+      password: formData.password,
+    };
+
     try {
-      const response = await authApi.signIn(formData);
+      const response = await authApi.signIn(payload);
       if (response.success && response.user) {
         if (response.user.role === 'ADMIN') {
           localStorage.setItem('cryptoWalletAdmin', JSON.stringify(response.user));
@@ -36,7 +69,7 @@ const SignIn: React.FC = () => {
         setError(response.message || 'Sign-in failed');
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(formatSignInError(err));
     } finally {
       setLoading(false);
     }
@@ -109,6 +142,38 @@ const SignIn: React.FC = () => {
               )}
             </button>
           </form>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => setShowHelp(s => !s)}
+              aria-expanded={showHelp}
+              aria-controls="signin-help"
+              className="text-muted"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                fontSize: '0.875rem',
+              }}
+            >
+              Trouble signing in?
+            </button>
+            {showHelp && (
+              <div
+                id="signin-help"
+                className="alert"
+                style={{ textAlign: 'left', marginTop: '0.75rem', fontSize: '0.875rem' }}
+              >
+                <ul style={{ paddingLeft: '1.25rem', margin: 0 }}>
+                  <li>Make sure your URL ends in <code>/signin</code> (not <code>/admin/login</code>).</li>
+                  <li>Use your <strong>email</strong> (e.g. <code>admin@cryptowall.local</code>), not your username.</li>
+                  <li>If your credentials come from <code>ADMIN_CREDENTIALS.md</code>, copy them carefully — leading or trailing spaces will cause failures.</li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
