@@ -21,21 +21,6 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ walletId, userI
     activeQuery.refetch();
   };
 
-  const getStatusColor = (status: TransactionStatus) => {
-    switch (status) {
-      case TransactionStatus.CONFIRMED:
-        return '#28a745';
-      case TransactionStatus.PENDING:
-        return '#ffc107';
-      case TransactionStatus.BROADCAST:
-        return '#fd7e14';
-      case TransactionStatus.FAILED:
-        return '#dc3545';
-      default:
-        return '#6c757d';
-    }
-  };
-
   const getStatusClass = (status: TransactionStatus) => {
     switch (status) {
       case TransactionStatus.CONFIRMED:

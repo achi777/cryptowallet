@@ -5,6 +5,7 @@ import './styles/globals.css';
 import './styles/admin.css';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 import AdminHome from './pages/admin/AdminHome';
 import { RoleGuard } from './components/RoleGuard';
 
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         {/* Legacy admin sign-in URL: stale bookmarks redirect to the unified /signin form. */}
         <Route path="/admin/login" element={<Navigate to="/signin" replace />} />
         <Route

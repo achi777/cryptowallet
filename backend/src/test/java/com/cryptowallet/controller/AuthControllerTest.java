@@ -1,6 +1,7 @@
 package com.cryptowallet.controller;
 
 import com.cryptowallet.dto.UserDto;
+import com.cryptowallet.dto.UserRegistrationDto;
 import com.cryptowallet.entity.User;
 import com.cryptowallet.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,9 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -80,6 +83,104 @@ class AuthControllerTest {
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.user.role").value("USER"))
                 .andExpect(jsonPath("$.user.email").value("customer@cryptowall.local"));
+    }
+
+    @Test
+    void registerWithValidPayloadReturnsCreatedAndUser() throws Exception {
+        UserDto created = new UserDto();
+        created.setId(42L);
+        created.setUsername("alice");
+        created.setEmail("alice@example.com");
+        created.setFirstName("Alice");
+        created.setLastName("Anderson");
+        created.setRole(User.Role.USER);
+        created.setActive(true);
+        when(userService.registerUser(any(UserRegistrationDto.class))).thenReturn(created);
+
+        Map<String, String> body = new HashMap<>();
+        body.put("username", "alice");
+        body.put("email", "alice@example.com");
+        body.put("password", "password123");
+        body.put("firstName", "Alice");
+        body.put("lastName", "Anderson");
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.user.email").value("alice@example.com"))
+                .andExpect(jsonPath("$.user.role").value("USER"));
+    }
+
+    @Test
+    void registerWithDuplicateEmailReturnsBadRequest() throws Exception {
+        when(userService.registerUser(any(UserRegistrationDto.class)))
+                .thenThrow(new RuntimeException("Email already exists"));
+
+        Map<String, String> body = new HashMap<>();
+        body.put("username", "alice");
+        body.put("email", "taken@example.com");
+        body.put("password", "password123");
+        body.put("firstName", "Alice");
+        body.put("lastName", "Anderson");
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsStringIgnoringCase("email")));
+    }
+
+    @Test
+    void registerWithDuplicateUsernameReturnsBadRequest() throws Exception {
+        when(userService.registerUser(any(UserRegistrationDto.class)))
+                .thenThrow(new RuntimeException("Username already exists"));
+
+        Map<String, String> body = new HashMap<>();
+        body.put("username", "taken");
+        body.put("email", "alice@example.com");
+        body.put("password", "password123");
+        body.put("firstName", "Alice");
+        body.put("lastName", "Anderson");
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.success").value(false))
+                .andExpect(jsonPath("$.message").value(org.hamcrest.Matchers.containsStringIgnoringCase("username")));
+    }
+
+    @Test
+    void registerWithBlankEmailReturnsBadRequest() throws Exception {
+        Map<String, String> body = new HashMap<>();
+        body.put("username", "alice");
+        body.put("email", "");
+        body.put("password", "password123");
+        body.put("firstName", "Alice");
+        body.put("lastName", "Anderson");
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void registerWithShortPasswordReturnsBadRequest() throws Exception {
+        Map<String, String> body = new HashMap<>();
+        body.put("username", "alice");
+        body.put("email", "alice@example.com");
+        body.put("password", "short");
+        body.put("firstName", "Alice");
+        body.put("lastName", "Anderson");
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
